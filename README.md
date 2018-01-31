@@ -8,7 +8,7 @@ Software Design and Documentation Project
 1.) Download pip
 2.) Install mysql
 3.) Install requirements.txt
-4.) Install MYSQL sql 
+4.) Install MYSQL sql
   ```
   sudo apt-get install python-pip python-dev build-essential
   sudo pip install --upgrade pip
