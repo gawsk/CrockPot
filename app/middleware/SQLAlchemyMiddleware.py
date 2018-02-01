@@ -3,8 +3,8 @@
 from operations import query_session
 
 
-# TODO: Figure out why this won't work... This is crucial
-class SQLAlchemyMiddleware(object):
+
+class SQLAlchemyMiddleware:
 	""" Middleware to ensure database is closed after each request """
 
 	def __init__(self, app):
@@ -12,25 +12,12 @@ class SQLAlchemyMiddleware(object):
 
 
 	def __call__(self, environ, start_response):
-	    try:
-	        query_session().begin_nested()
-	        return self.app(environ, start_response)
-	    except BaseException:
-	        query_session.rollback()
-	        query_session.close()
-	    finally:
-	        query_session().commit()
-	
-	#
-	# def process_response(self, request, response):
-	# 	""" Close and commit the Database session"""
-	# 	session = query_session.get_session()
-	# 	session.commit()
-	# 	session.close()
-	# 	return response
-	#
-	# def process_exception(self, *unused):
-	# 	""" Handler for exception; rollback and close the session """
-	# 	session = query_session.get_session()
-	# 	session.rollback()
-	# 	session.close()
+		try:
+			query_session.get_session().begin_nested
+		except BaseException:
+			query_session.get_session().rollback()
+		finally:
+			query_session.get_session().commit()
+			query_session.get_session().close()
+
+		return self.app(environ, start_response)

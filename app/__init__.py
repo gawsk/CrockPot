@@ -8,7 +8,7 @@ from flask_bootstrap import Bootstrap
 
 # Local imports
 from config import app_config
-from app.middleware import SQLAlchemyMiddleware
+from app.middleware.SQLAlchemyMiddleware import SQLAlchemyMiddleware
 
 # Variable initializations
 login_manager = LoginManager()
@@ -19,7 +19,7 @@ def create_app(config_name):
     app.config.from_object(app_config[config_name])
     app.config.from_pyfile('config.py')
 
-    # app.wsgi_app = middleware.SQLAlchemyMiddleware(app.wsgi_app)
+    app.wsgi_app = SQLAlchemyMiddleware(app.wsgi_app)
 
     bootstrap = Bootstrap(app)
 

@@ -1,6 +1,5 @@
 """ Module used to get a handle to the DB session """
 
-import sys
 from config import Config
 
 def get_session():
