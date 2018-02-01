@@ -1,0 +1,10 @@
+<!--Nav Bar -->
+<ul class="nav navbar-nav navbar-right">
+    <li><a href="{{ url_for('home.index') }}">Home</a></li>
+    <li><a href="{{ url_for('auth.register') }}">Register</a></li>
+    <li><a href="{{ url_for('auth.login') }}">Login</a></li>
+</ul>
+
+
+{% block body %}
+{% endblock %}
