@@ -34,5 +34,5 @@ def create_app(config_name):
     from app.home import home as home_blueprint
     app.register_blueprint(home_blueprint)
 
-    
+
     return app
