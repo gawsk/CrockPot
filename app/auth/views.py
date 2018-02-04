@@ -21,7 +21,7 @@ def register():
                     password=form.password.data)
             user_modify.add(user)
             flash("Successfully Registered")
-            return redirect(url_for('auth.login'))            
+            return redirect(url_for('auth.login'))
 
     return render_template('auth/register.html', form=form)
 

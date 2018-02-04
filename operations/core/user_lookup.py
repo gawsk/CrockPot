@@ -1,19 +1,28 @@
 """ Module provides functions for querying Users """
 
 from models.core.user import User
+from operations import query_session
 
 def by_email(email):
     """ Get User by email """
-    return User.query.filter(User.email==email).first()
+
+    session = query_session.get_session()
+    return session.query(User).filter(User.email==email).first()
 
 def by_id(user_id):
     """ Get User by id """
-    return User.query.filter(User.id==user_id).first()
+
+    session = query_session.get_session()
+    return session.query(User).filter(User.id==user_id).all()
 
 def by_username(username):
     """ Get User by username """
-    return User.query.filter(User.username==username).first()
+
+    session = query_session.get_session()
+    return session.query(User).filter(User.username==username).all()
 
 def get_all():
     """ Get all User objects """
-    return User.query.all()
+
+    session = query_session.get_session()
+    return session.query(User).all()
