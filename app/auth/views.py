@@ -6,21 +6,22 @@ from operations.core import user_modify, user_lookup
 from models.core.user import User
 
 from app.auth import auth
-
+from flask import request
 
 @auth.route('/register', methods=['GET', 'POST'])
 def register():
     """ Register a User """
-    form = RegistrationForm()
-    if form.validate_on_submit():
-        user = User(
-                email=form.email.data,
-                username=form.username.data,
-                name=form.name.data,
-                password=form.password.data)
-
-        user_modify.add(user)
-        return redirect(url_for('auth.login'))
+    form = RegistrationForm(request.form)
+    if request.method == "POST":
+        if form.validate_on_submit():
+            user = User(
+                    email=form.email.data,
+                    username=form.username.data,
+                    name=form.name.data,
+                    password=form.password.data)
+            user_modify.add(user)
+            flash("Successfully Registered")
+            return redirect(url_for('auth.login'))            
 
     return render_template('auth/register.html', form=form)
 

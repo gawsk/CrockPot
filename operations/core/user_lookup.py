@@ -9,3 +9,11 @@ def by_email(email):
 def by_id(user_id):
     """ Get User by id """
     return User.query.filter(User.id==user_id).first()
+
+def by_username(username):
+    """ Get User by username """
+    return User.query.filter(User.username==username).first()
+
+def get_all():
+    """ Get all User objects """
+    return User.query.all()

@@ -8,12 +8,20 @@
 <div class="container">
   <div class="row">
     <div class="col-md-1"></div>
-      <legend>Register for an account</legend>
-      {{ wtf.form_field(form.email, class='form-control', placeholder='Enter your email here') }}
-      {{ wtf.form_field(form.username, class='form-control', placeholder='Enter your username here') }}
-      {{ wtf.form_field(form.name, class='form-control', placeholder='Enter your name here') }}
-      {{ wtf.form_field(form.password, class='form-control', placeholder='Enter your password here') }}
-      {{ render_field(form.submit, class='btn btn-success btn-block') }}
+    {% for field, errors in form.errors.iteritems() %}
+<div class="alert alert-error">
+    {{ form[field].label }}: {{ ', '.join(errors) }}
+</div>
+{% endfor %}
+      {{ utils.flashed_messages() }}
+      <form action="{{ url_for('auth.register') }}" method="post">
+        <legend>Register for an account</legend>
+        {{ wtf.form_field(form.email, class='form-control', placeholder='Enter your email here') }}
+        {{ wtf.form_field(form.username, class='form-control', placeholder='Enter your username here') }}
+        {{ wtf.form_field(form.name, class='form-control', placeholder='Enter your name here') }}
+        {{ wtf.form_field(form.password, class='form-control', placeholder='Enter your password here') }}
+        {{ render_field(form.submit, class='btn btn-success btn-block') }}
+      </form>
     <div class="col-md-1"></div>
   </div>
 </div>

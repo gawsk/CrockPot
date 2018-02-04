@@ -5,7 +5,10 @@ from operations import query_session
 def add(obj):
 	"""Add a new Object"""
 	session = query_session.get_session()
+	session.begin_nested()
+
 	session.add(obj)
+	session.flush()
 	session.commit()
 
 def save(obj):

@@ -2,6 +2,7 @@ from flask import render_template
 from flask_login import login_required
 
 from app.home import home
+from operations.core import user_lookup
 
 @home.route('/')
 def index():
@@ -12,4 +13,7 @@ def index():
 @login_required
 def dashboard():
     """ Dashboard after logging in """
-    return render_template('home/dashboard.html', title="Dashboard")
+    users = user_lookup.get_all()
+    return render_template('home/dashboard.html', var = {
+        'users' : users
+    })
