@@ -19,13 +19,18 @@ class RegistrationForm(FlaskForm):
 
     def validate(self):
         """ Validation to ensure no duplicates """
+        is_successful = True
         username = user_lookup.by_username(self.username.data)
-        if username is not None:
+        if len(username) == 1:
             flash("Username taken already")
+            is_successful = False
 
         email = user_lookup.by_email(self.email.data)
         if email is not None:
             flash("Email taken already")
+            is_successful = False
+
+        return is_successful
 
 class LoginForm(FlaskForm):
     """ Form for users to login """
