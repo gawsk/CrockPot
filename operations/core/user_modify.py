@@ -4,6 +4,7 @@ from operations import crud
 
 def add(user_obj):
     """Add a User"""
+    user_obj.set_password()
     return crud.add(user_obj)
 
 def save(user_obj):

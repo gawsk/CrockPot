@@ -5,6 +5,8 @@ from app import login_manager
 from config import Config
 from sqlalchemy import Column, BigInteger, Integer, String, ForeignKey
 from models.security.role import Role
+from operations.security import hash
+
 
 class User(Config.Base, UserMixin):
     """ A User is used to keep information specifics """
@@ -19,10 +21,14 @@ class User(Config.Base, UserMixin):
     password = Column('password', String(150))
     role_id = Column('role_id', Integer, ForeignKey(Role.id), default=Role.USER)
 
-    
+
+    def set_password(self):
+        """ Store the password hashed """
+        self.password = hash.create(self.username, self.password)
+
     def verify_password(self, password):
         """ Check if the password matches """
-        return True # TODO: FIX SECURITY; Use a Hash + Salt
+        return hash.create(self.username, password) == self.password
 
     def __repr__(self):
         return '<User: {}>'.format(self.username)
