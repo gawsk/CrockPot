@@ -1,9 +1,8 @@
 """ Forms for auth """
 
 from flask_wtf import FlaskForm
-from wtforms import PasswordField, StringField, SubmitField, ValidationError
-from wtforms.validators import DataRequired, Email, EqualTo
-from models.core.user import User
+from wtforms import PasswordField, StringField, SubmitField
+from wtforms.validators import DataRequired, Email
 from operations.core import user_lookup
 from flask import flash
 

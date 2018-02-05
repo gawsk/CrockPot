@@ -1,4 +1,6 @@
-from flask import flash, redirect, render_template, url_for
+""" Views associated with Auth """
+
+from flask import flash, redirect, render_template, url_for, request
 from flask_login import login_required, login_user, logout_user
 
 from app.auth.forms import LoginForm, RegistrationForm
@@ -6,7 +8,6 @@ from operations.core import user_modify, user_lookup
 from models.core.user import User
 
 from app.auth import auth
-from flask import request
 
 @auth.route('/register', methods=['GET', 'POST'])
 def register():

@@ -2,6 +2,6 @@
 
 from flask import Blueprint
 
-home = Blueprint('home', __name__)
+home = Blueprint('home', __name__) # pylint: disable=C0103
 
-from app.home import views
+from app.home import views #pylint: disable=C0413

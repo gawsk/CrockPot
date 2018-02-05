@@ -1,3 +1,5 @@
+""" App module provides the setup for the entire application """
+
 # Third-party imports
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
@@ -10,17 +12,20 @@ from flask_bootstrap import Bootstrap
 from config import app_config
 from app.middleware.SQLAlchemyMiddleware import SQLAlchemyMiddleware
 
-# Variable initializations
-login_manager = LoginManager()
 
+# Variable initializations
+login_manager = LoginManager() # pylint: disable=C0103
 
 def create_app(config_name):
+    """ Create the core of the application """
+
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_object(app_config[config_name])
     app.config.from_pyfile('config.py')
 
     app.wsgi_app = SQLAlchemyMiddleware(app.wsgi_app)
 
+    #pylint: disable=unused-variable
     bootstrap = Bootstrap(app)
 
     login_manager.init_app(app)
