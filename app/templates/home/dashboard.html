@@ -1,0 +1,10 @@
+{% extends "sidebar.html" %}
+Logged in
+
+{% block content %}
+  <ul>
+  {% for user in var.users %}
+    <li>{{ user.email }}</li>
+  {% endfor %}
+</ul>
+{% endblock %}

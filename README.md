@@ -5,10 +5,12 @@ Software Design and Documentation Project
 
 
 # Install
-1.) Download pip
-2.) Install mysql
-3.) Install requirements.txt
-4.) Install MYSQL sql
+1.) Download pip  
+2.) Install mysql  
+3.) Install requirements.txt  
+4.) Install MYSQL sql  
+5.) Create instance folder and add 'config.py' inside
+6.) Add a random secret key to 'config.py'
   ```
   sudo apt-get install python-pip python-dev build-essential
   sudo pip install --upgrade pip
@@ -21,11 +23,19 @@ Software Design and Documentation Project
 
   mysql -u root -p < sample.sql
   root
+
+  mkdir instance
+  echo "SECRET_KEY = 'ENTER RANDOMIZED KEY HERE'" > instance/config.py
   ```
 
 
-
 # Running on localhost
-To run the program use the following command: `python Crockpot/app.py`
-Navigate to localhost:5000 to view the webpage
-If you update any of the code, you must re-run the command above.
+If you haven't already, go to the directory where you installed installed Crockpot and run the following  
+ ```
+ export FLASK_APP=run.py
+ export FLASK_CONFIG=development
+  ```
+
+To run the program use the following command: `flask run`  
+Navigate to localhost:5000 to view the webpage  
+If you update any of the code, you must re-run the command above.  

@@ -9,7 +9,7 @@ USE crockpot_db;
 
 -- Create role TABLE
 CREATE TABLE role (
-  id BIGINT NOT NULL AUTO_INCREMENT,
+  id Integer NOT NULL AUTO_INCREMENT,
   name VARCHAR(50) NOT NULL UNIQUE,
   PRIMARY KEY(id)
 );
@@ -23,9 +23,9 @@ CREATE TABLE user (
   id BIGINT NOT NULL AUTO_INCREMENT,
   email VARCHAR(320) NOT NULL UNIQUE,
   name VARCHAR(45) NULL,
-  username VARCHAR(45) NOT NULL,
-  password VARCHAR(45) NOT NULL,
-  role_id BIGINT NOT NULL DEFAULT 2,
+  username VARCHAR(45) NOT NULL UNIQUE,
+  password VARCHAR(150) NOT NULL,
+  role_id Integer DEFAULT 2,
   PRIMARY KEY (id),
   FOREIGN KEY(role_id) REFERENCES role(id)
 );
@@ -36,7 +36,9 @@ CREATE TABLE recipe (
   id BIGINT NOT NULL AUTO_INCREMENT,
   name VARCHAR(200) NOT NULL,
   description VARCHAR(500),
-  PRIMARY KEY(id)
+  user_id BIGINT NOT NULL,
+  PRIMARY KEY(id),
+  FOREIGN KEY(user_id) REFERENCES user(id)
 );
 
 
