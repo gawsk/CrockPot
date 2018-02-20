@@ -1,0 +1,23 @@
+{% extends "sidebar.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% from "_formhelpers.html" import render_field %}
+
+
+{% block title %}View All Recpies{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-1"></div>
+    TODO: Make this to only view one of recipes... using all for testing purposes
+    <table>
+      {% for recipe in all_recipes %}
+        <li>{{ recipe.name }}</li>
+        <ul>
+          <li></li>
+        </ul>
+      {% endfor %}
+    </table>
+    <div class="col-md-1"></div>
+  </div>
+</div>
+{% endblock %}

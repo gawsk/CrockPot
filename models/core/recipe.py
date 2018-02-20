@@ -2,6 +2,7 @@
 
 from sqlalchemy import Column, BigInteger, String, ForeignKey
 from models.core.user import User
+from models.core.recipe_url import RecipeURL
 from config import Config
 
 
@@ -16,6 +17,7 @@ class Recipe(Config.Base):
     name = Column(String(200))
     description = Column(String(500))
     user_id = Column(BigInteger, ForeignKey(User.id))
+    url_id = Column(BigInteger, ForeignKey(RecipeURL.id))
 
 
     def __repr__(self):

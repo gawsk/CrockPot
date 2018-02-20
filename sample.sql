@@ -31,22 +31,35 @@ CREATE TABLE user (
 );
 
 
+-- Create recipe url table
+CREATE TABLE recipe_url(
+  id BIGINT NOT NULL AUTO_INCREMENT,
+  url VARCHAR(1000) NOT NULL UNIQUE,
+  PRIMARY KEY(id)
+);
+
+
 -- Create recipe table
 CREATE TABLE recipe (
   id BIGINT NOT NULL AUTO_INCREMENT,
   name VARCHAR(200) NOT NULL,
   description VARCHAR(500),
   user_id BIGINT NOT NULL,
+  url_id BIGINT NOT NULL,
   PRIMARY KEY(id),
-  FOREIGN KEY(user_id) REFERENCES user(id)
+  UNIQUE KEY(user_id, url_id),
+  FOREIGN KEY(user_id) REFERENCES user(id),
+  FOREIGN KEY(url_id) REFERENCES recipe_url(id)
+
 );
 
 
--- CREATE recipe steps table
-CREATE TABLE recipe_steps (
+-- CREATE recipe step table
+CREATE TABLE recipe_step (
   id BIGINT NOT NULL AUTO_INCREMENT,
   recipe_id BIGINT NOT NULL,
   description TEXT NOT NULL,
+  num BIGINT NOT NULL,
   PRIMARY KEY(id),
   FOREIGN KEY(recipe_id) REFERENCES recipe(id)
 );
@@ -56,9 +69,7 @@ CREATE TABLE recipe_steps (
 CREATE TABLE ingredient (
   id BIGINT NOT NULL AUTO_INCREMENT,
   name VARCHAR(130) NOT NULL,
-  recipe_id BIGINT NOT NULL,
-  PRIMARY KEY(id),
-  FOREIGN KEY(recipe_id) REFERENCES recipe(id)
+  PRIMARY KEY(id)
 );
 
 
@@ -74,11 +85,13 @@ CREATE TABLE measurement (
 CREATE TABLE quantity (
   id BIGINT NOT NULL AUTO_INCREMENT,
   ingredient_id BIGINT NOT NULL,
-  measurement_id BIGINT NOT NULL,
-  amount int NOT NULL DEFAULT 0,
+  measurement_id BIGINT,
+  recipe_id BIGINT NOT NULL,
+  amount VARCHAR(25) NOT NULL DEFAULT 0,
   PRIMARY KEY(id),
   FOREIGN KEY(ingredient_id) REFERENCES ingredient(id),
-  FOREIGN KEY(measurement_id) REFERENCES measurement(id)
+  FOREIGN KEY(measurement_id) REFERENCES measurement(id),
+  FOREIGN KEY(recipe_id) REFERENCES recipe(id)
 );
 
 
