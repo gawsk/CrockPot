@@ -15,3 +15,8 @@ def get_all():
     """ Get all RecipeURL's """
     session = query_session.get_session()
     return session.query(Recipe).all()
+
+def by_id(recipe_id):
+    """ Get Recipe by Id """
+    session = query_session.get_session()
+    return session.query(Recipe).filter(Recipe.id == recipe_id).first()

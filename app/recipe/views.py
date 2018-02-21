@@ -22,11 +22,18 @@ def add():
             url_parse.allrecipes(request.form['URL'], current_user.id)
     return render_template('recipe/add_recipe.html', form=form)
 
-
-@recipe.route('/recipe/view')
+@recipe.route('/recipe/view/', methods=['GET'])
 @login_required
 def view():
+    """ View a specific Recipe """
+    recipe = recipe_lookup.by_id(request.args.get('recipe_id'))
+    return render_template('recipe/view.html', recipe=recipe)
+
+
+@recipe.route('/recipe/view_all')
+@login_required
+def view_all():
     """ View all Recipes """
     all_recipes = recipe_lookup.get_all()
 
-    return render_template('recipe/view.html', all_recipes=all_recipes)
+    return render_template('recipe/view_all.html', all_recipes=all_recipes)

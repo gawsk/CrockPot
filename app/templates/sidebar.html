@@ -26,7 +26,7 @@
                   {% if current_user.is_active %}
                     <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
                     <li><a href="{{ url_for('recipe.add') }}">Add Recipe</a></li>
-                    <li><a href="{{ url_for('recipe.view') }}">View all Recipes</a></li>
+                    <li><a href="{{ url_for('recipe.view_all') }}">View all Recipes</a></li>
                   {% else %}
                     <li><a href="{{ url_for('auth.register') }}">Register</a></li>
                     <li><a href="{{ url_for('auth.login') }}">Login</a></li>

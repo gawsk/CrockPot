@@ -3,26 +3,24 @@
 {% from "_formhelpers.html" import render_field %}
 
 
-{% block title %}View All Recpies{% endblock %}
+{% block title %}View Recipe{% endblock %}
 {% block content %}
 <div class="container">
   <div class="row">
     <div class="col-md-1"></div>
-    TODO: Make this to only view one of recipes... using all for testing purposes
+    <h2>Viewing specific recipe</h2>
     <table>
-      {% for recipe in all_recipes %}
-        <li>{{ recipe.name }}</li>
+      <li>{{ recipe.name }}</li>
+      <ul>
+        {% for step in recipe.steps %}
+        <li>{{ step.num }} - {{ step.description }}</li>
+        {% endfor %}
         <ul>
-          {% for step in recipe.steps %}
-          <li>{{ step.num }} - {{ step.description }}</li>
+          {% for ingredient in recipe.quantity %}
+          <li>{{ ingredient.amount }} {{ ingredient.measurement_obj.name }} {{ ingredient.ingredient_obj.name }}</li>
           {% endfor %}
-          <ul>
-            {% for ingredient in recipe.quantity %}
-            <li>{{ ingredient.amount }} {{ ingredient.measurement_obj.name }} {{ ingredient.ingredient_obj.name }}</li>
-            {% endfor %}
-          </ul>
         </ul>
-      {% endfor %}
+      </ul>
     </table>
     <div class="col-md-1"></div>
   </div>
