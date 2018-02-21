@@ -19,4 +19,4 @@ class RecipeStep(Config.Base):
 
 
     def __repr__(self):
-        return '<RecipeStep: {}>'.format(self.name)
+        return '<RecipeStep: {}>'.format(self.description)

@@ -28,8 +28,6 @@ def add():
 def view():
     """ View all Recipes """
     all_recipes = recipe_lookup.get_all()
-    print all_recipes
-    print ingredient_lookup.get_all()
 
 
     return render_template('recipe/view.html', all_recipes=all_recipes)

@@ -1,6 +1,7 @@
 """ Contains the Quantity Step Model """
 
 from sqlalchemy import Column, BigInteger, String, ForeignKey, Text, Integer
+from sqlalchemy.orm import relationship
 from models.core.recipe import Recipe
 from models.core.measurement import Measurement
 from models.core.ingredient import Ingredient
@@ -19,6 +20,9 @@ class Quantity(Config.Base):
     ingredient_id = Column(BigInteger, ForeignKey(Ingredient.id))
     measurement_id = Column(BigInteger, ForeignKey(Measurement.id))
     amount = Column(Integer)
+
+    ingredient_obj = relationship("Ingredient")
+    measurement_obj = relationship("Measurement")
 
 
     def __repr__(self):

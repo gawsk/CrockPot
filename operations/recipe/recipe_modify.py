@@ -10,6 +10,7 @@ from operations.recipe import recipe_url_modify, recipe_url_lookup, recipe_looku
                                 ingredient_lookup, ingredient_modify, measurement_modify, measurement_lookup, \
                                 quantity_modify
 
+# TODO: Only add recipe this info if user "edits"
 def add_recipe_info(user_id, details={}):
     """ Add a Recipe (and all its ingredients and steps)"""
     if len(details) == 0:
@@ -36,8 +37,10 @@ def add_recipe_info(user_id, details={}):
     # Add steps to database
     step_num = 1
     for step in details['steps']:
+        if len(step.strip()) == 0: continue
         recipe_step = RecipeStep(recipe_id=recipe_id, description=step, num=step_num)
         recipe_step_modify.add(recipe_step)
+        step_num += 1
 
     measurements = {'teaspoons', 'tablespoons', 'cup', 'cups', 'pints', 'pint', 'quarts', 'quart', \
                         'ounce', 'ounces', 'dash', 'pinch', 'cube', 'cubes'}
@@ -77,5 +80,4 @@ def add_recipe_info(user_id, details={}):
 
 def add(recipe_obj):
     """ Add a recipe object """
-    print "Added Recipe Object"
     crud.add(recipe_obj)

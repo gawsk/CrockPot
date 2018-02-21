@@ -13,7 +13,14 @@
       {% for recipe in all_recipes %}
         <li>{{ recipe.name }}</li>
         <ul>
-          <li></li>
+          {% for step in recipe.steps %}
+          <li>{{ step.num }} - {{ step.description }}</li>
+          {% endfor %}
+          <ul>
+            {% for ingredient in recipe.quantity %}
+            <li>{{ ingredient.amount }} {{ ingredient.measurement_obj.name }} {{ ingredient.ingredient_obj.name }}</li>
+            {% endfor %}
+          </ul>
         </ul>
       {% endfor %}
     </table>
