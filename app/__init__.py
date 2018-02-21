@@ -39,5 +39,7 @@ def create_app(config_name):
     from app.home import home as home_blueprint
     app.register_blueprint(home_blueprint)
 
+    from app.recipe import recipe as recipe_blueprint
+    app.register_blueprint(recipe_blueprint)
 
     return app

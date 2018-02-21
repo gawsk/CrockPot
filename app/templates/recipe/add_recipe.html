@@ -1,0 +1,26 @@
+{% extends "sidebar.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% from "_formhelpers.html" import render_field %}
+
+
+{% block title %}Parse URL{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-1"></div>
+      {% for field, errors in form.errors.iteritems() %}
+        <div class="alert alert-error">
+            {{ form[field].label }}: {{ ', '.join(errors) }}
+        </div>
+      {% endfor %}
+      {{ utils.flashed_messages() }}
+      <form action="{{ url_for('recipe.add') }}" method="post">
+        {{ form.hidden_tag() }}
+        <legend>Recipe from URL to add</legend>
+        {{ wtf.form_field(form.URL, class='form-control', placeholder='Enter the URL to parse here') }}
+        {{ render_field(form.submit, class='btn btn-success btn-block') }}
+      </form>
+    <div class="col-md-1"></div>
+  </div>
+</div>
+{% endblock %}
