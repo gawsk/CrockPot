@@ -36,11 +36,17 @@ class BasicTests(unittest.TestCase):
 
 
 ########################################################
-#################### tests #############################
+#################### TESTS #############################
 ########################################################
 
+
+########################
+## TEST FOR PAGE LOAD ##
+##  (NOT LOGGED IN)   ##
+########################
+
     #Test the MAIN page to ensure it loads
-    def test_main_page(self):
+    def test_01_01_main_page(self):
         print "\nTEST - Load Main Page...",
         response = self.app.get('/', follow_redirects=True)
         self.assertEqual(response.status_code, 200)
@@ -48,13 +54,64 @@ class BasicTests(unittest.TestCase):
 
 
     #Test the REGISTER page to ensure it loads
-    def test_register_page(self):
+    def test_01_02_register_page(self):
         print "\nTEST - Load Register Page...",
         response = self.app.get('/register', follow_redirects=True)
         result = self.assertEqual(response.status_code, 200)
         print "PASSED",
 
 
+    #Test the LOGIN page to ensure it loads
+    def test_01_03_login_page(self):
+        print "\nTEST - Load Login Page...",
+        response = self.app.get('/login', follow_redirects=True)
+        self.assertEqual(response.status_code, 200)
+        print "PASSED",
+
+
+    #Test the DASHBOARD page to ensure it loads
+    #  Actually this redirects to the login page, and gives you a message
+    #    that says, "You must be logged in to access this page. "
+    def test_01_04_dashbaord_page(self):
+        print "\nTEST - Load Dashboard Page...",
+        response = self.app.get('/dashboard', follow_redirects=True)
+        self.assertEqual(response.status_code, 200)
+        print "PASSED",
+
+
+########################
+## TEST FOR PAGE LOAD ##
+##     (LOGGED IN)    ##
+########################
+
+    #Test the Login page with a Email and Password
+    '''
+    def test_02_01_dashbaord_page(self):
+        print "\nTEST - Load Login Page...",
+        response = self.app.post('/login', {'email': 'test@rpi.edu', 'password': 'teast', 'submit': 'Login'})
+        #response = self.app.get('/login', follow_redirects=True)
+
+        self.assertEqual(response.status_code, 200)
+        print "PASSED",
+    '''
+
+
+
+
+
+
+
+
+
+
+
+
+
+    ##LEAVE THIS LAST
+    #DUMMY TEST to make print statements in terminal display correct
+    def test_99_01_dummyTest_page(self):
+        self.assertEqual("!", "!")
+        print
 
 
 if __name__ == "__main__":
