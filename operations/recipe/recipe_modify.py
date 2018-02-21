@@ -86,3 +86,13 @@ def add_recipe_info(user_id, details={}):
 def add(recipe_obj):
     """ Add a recipe object """
     crud.add(recipe_obj)
+
+def save(recipe_obj, form):
+    """ Save a recipe object from a form """
+    session = crud.pre_save()
+    values = form.to_dict()
+    del values['csrf_token']
+    del values['submit']
+    session.query(Recipe).filter(Recipe.id == recipe_obj.id).update(values)
+
+    crud.save()

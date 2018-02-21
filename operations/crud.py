@@ -11,14 +11,18 @@ def add(obj):
     session.flush()
     session.commit()
 
-def save(obj):
-    """Save an Object that has been edited in this Session"""
+def pre_save():
+    """pre_save an Object that has been edited in this Session"""
     session = query_session.get_session()
     session.begin_nested()
+    return session
+    # session.save(obj)
+    # session.commit()
 
-    session.save(obj)
+def save():
+    """ Save an Object that has been edited in this session """
     session.commit()
-
+    
 def delete(obj):
     """Delete an Object"""
     session = query_session.get_session()

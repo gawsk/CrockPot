@@ -10,7 +10,7 @@
     <div class="col-md-1"></div>
     <h2>Viewing specific recipe</h2>
     <table>
-      <li>{{ recipe.name }}</li>
+      <li>{{ recipe.name }} - <a href="{{ url_for('recipe.edit', recipe_id=recipe.id) }}">Edit</a></li>
       <ul>
         {% for step in recipe.steps %}
         <li>{{ step.num }} - {{ step.description }}</li>
