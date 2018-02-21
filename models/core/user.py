@@ -5,7 +5,7 @@ from app import login_manager
 from config import Config
 from sqlalchemy import Column, BigInteger, Integer, String, ForeignKey
 from models.security.role import Role
-from operations.security import hash
+from operations.security import custom_hash
 
 
 class User(Config.Base, UserMixin):
@@ -24,11 +24,11 @@ class User(Config.Base, UserMixin):
 
     def set_password(self):
         """ Store the password hashed """
-        self.password = hash.create(self.username, self.password)
+        self.password = custom_hash.create(self.username, self.password)
 
     def verify_password(self, password):
         """ Check if the password matches """
-        return hash.create(self.username, password) == self.password
+        return custom_hash.create(self.username, password) == self.password
 
     def __repr__(self):
         return '<User: {}>'.format(self.username)

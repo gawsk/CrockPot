@@ -16,7 +16,7 @@ class SQLAlchemyMiddleware(object):
         """ Ensure database is closed after each request """
         try:
             query_session.get_session().begin_nested
-        except:
+        except BaseException:
             query_session.get_session().rollback()
         finally:
             query_session.get_session().commit()

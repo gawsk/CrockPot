@@ -1,6 +1,6 @@
 """ Contains the Recipe Step Model """
 
-from sqlalchemy import Column, BigInteger, String, ForeignKey, Text
+from sqlalchemy import Column, BigInteger, ForeignKey, Text
 from models.core.recipe import Recipe
 from config import Config
 

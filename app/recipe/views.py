@@ -7,11 +7,11 @@ from flask.ext.login import current_user
 from app.recipe import recipe
 from app.recipe.forms import URLForm
 
-from operations.recipe import url_parse
+from operations.helper import url_parse
 
-from operations.recipe import recipe_lookup, ingredient_lookup
+from operations.recipe import recipe_lookup
 
-@recipe.route('/recipe/add',  methods=['GET', 'POST'])
+@recipe.route('/recipe/add', methods=['GET', 'POST'])
 @login_required
 def add():
     """ Add a Recipe """
@@ -28,6 +28,5 @@ def add():
 def view():
     """ View all Recipes """
     all_recipes = recipe_lookup.get_all()
-
 
     return render_template('recipe/view.html', all_recipes=all_recipes)

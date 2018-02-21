@@ -1,10 +1,7 @@
 """ Forms for auth """
 
 from flask_wtf import FlaskForm
-from wtforms import PasswordField, StringField, SubmitField, TextField
-from wtforms.validators import DataRequired, Email
-from operations.core import user_lookup
-from flask import flash
+from wtforms import SubmitField, TextField
 
 
 class URLForm(FlaskForm):

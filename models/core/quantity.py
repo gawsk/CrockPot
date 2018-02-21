@@ -1,6 +1,6 @@
-""" Contains the Quantity Step Model """
+""" Contains the Quantity Model """
 
-from sqlalchemy import Column, BigInteger, String, ForeignKey, Text, Integer
+from sqlalchemy import Column, BigInteger, ForeignKey, Integer
 from sqlalchemy.orm import relationship
 from models.core.recipe import Recipe
 from models.core.measurement import Measurement

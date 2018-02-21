@@ -1,6 +1,6 @@
-""" Contains the Recipe URL Model """
+""" Contains the Measurement Model """
 
-from sqlalchemy import Column, BigInteger, String, ForeignKey, String
+from sqlalchemy import Column, BigInteger, String
 from config import Config
 
 
