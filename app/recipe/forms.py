@@ -1,7 +1,7 @@
 """ Forms for auth """
 
 from flask_wtf import FlaskForm
-from wtforms import SubmitField, TextField, HiddenField, validators
+from wtforms import SubmitField, TextField, validators
 
 
 class URLForm(FlaskForm):

@@ -14,7 +14,7 @@
         </div>
       {% endfor %}
       {{ utils.flashed_messages() }}
-      <form action="{{ url_for('recipe.edit', recipe_id=var.recipe_id) }}" method="post">
+      <form action="{{ url_for('recipe.edit_recipe', recipe_id=var.recipe_id) }}" method="post">
         {{ var.form.hidden_tag() }}
         <legend>Register for an account</legend>
         {{ wtf.form_field(var.form.name, class='form-control') }}

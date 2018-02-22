@@ -1,14 +1,15 @@
 """ Module provides helper functions for Quantity """
 
-from operations.recipe import ingredient_lookup, recipe_lookup, measurement_modify, measurement_lookup, ingredient_modify
+from operations.recipe import ingredient_lookup, measurement_modify, \
+                              measurement_lookup, ingredient_modify
 from models.core.ingredient import Ingredient
 from models.core.measurement import Measurement
 
 
 def parse(description):
     """ Parse an ingredient text and insert into measurement/ingredients tables """
-    measurements = {'teaspoons', 'tablespoons', 'cup', 'cups', 'pints', 'pint', 'quarts', 'quart', \
-                        'ounce', 'ounces', 'dash', 'pinch', 'cube', 'cubes'}
+    measurements = {'teaspoons', 'tablespoons', 'cup', 'cups', 'pints', 'pint', \
+                    'quarts', 'quart', 'ounce', 'ounces', 'dash', 'pinch', 'cube', 'cubes'}
 
     description = description.split(' ')
     quantity = description[0].encode('utf8')

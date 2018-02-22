@@ -6,10 +6,10 @@ from flask.ext.login import current_user
 
 from app.recipe import recipe
 from app.recipe.forms import URLForm, EditRecipeForm, EditRecipeStepForm, EditIngredientForm
-from models.core.recipe import Recipe
 from operations.helper import url_parse
 
-from operations.recipe import recipe_lookup, recipe_modify, recipe_step_lookup,recipe_step_modify, quantity_lookup, quantity_modify
+from operations.recipe import recipe_lookup, recipe_modify, recipe_step_lookup, \
+                               recipe_step_modify, quantity_lookup, quantity_modify
 
 @recipe.route('/recipe/add', methods=['GET', 'POST'])
 @login_required
@@ -26,8 +26,8 @@ def add():
 @login_required
 def view():
     """ View a specific Recipe """
-    recipe = recipe_lookup.by_id(request.args.get('recipe_id'))
-    return render_template('recipe/view.html', recipe=recipe)
+    recipe_obj = recipe_lookup.by_id(request.args.get('recipe_id'))
+    return render_template('recipe/view.html', recipe=recipe_obj)
 
 
 # TODO: Add decorator to ensure user own's this recipe
@@ -36,16 +36,20 @@ def view():
 def edit_recipe():
     """ Edit a Recipe Name """
     form = EditRecipeForm(request.form)
-    recipe = recipe_lookup.by_id(request.args.get('recipe_id'))
+    recipe_obj = recipe_lookup.by_id(request.args.get('recipe_id'))
 
     if request.method == "POST":
         if form.validate_on_submit():
-            recipe_modify.save(recipe, request.form)
-            return redirect(url_for('recipe.view', recipe_id=recipe.id))
+            recipe_modify.save(recipe_obj, request.form)
+            return redirect(url_for('recipe.view', recipe_id=recipe_obj.id))
     else:
-        form = EditRecipeForm(obj=recipe)
+        form = EditRecipeForm(obj=recipe_obj)
 
-    return render_template('recipe/edit_recipe.html', var={'form':form, 'recipe_id':recipe.id})
+    return render_template('recipe/edit_recipe.html', \
+                            var={'form':form,
+                                 'recipe_id':recipe_obj.id
+                                }
+                          )
 
 
 
@@ -64,7 +68,8 @@ def edit_step():
     else:
         form = EditRecipeStepForm(obj=recipe_step)
 
-    return render_template('recipe/edit_recipe_step.html', var={'form':form, 'recipe_step_id':recipe_step.id})
+    return render_template('recipe/edit_recipe_step.html', \
+                            var={'form':form, 'recipe_step_id':recipe_step.id})
 
 
 # TODO: Add decorator to ensure user own's this recipe
@@ -81,7 +86,8 @@ def edit_ingredient():
     else:
         form = EditIngredientForm(description=ingredient.description())
 
-    return render_template('recipe/edit_ingredient.html', var={'form':form, 'quantity_id':ingredient.id})
+    return render_template('recipe/edit_ingredient.html', \
+                            var={'form':form, 'quantity_id':ingredient.id})
 
 
 

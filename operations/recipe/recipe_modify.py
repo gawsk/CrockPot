@@ -3,12 +3,9 @@
 from operations import crud
 from models.core.recipe import Recipe
 from models.core.recipe_step import RecipeStep
-from models.core.ingredient import Ingredient
-from models.core.measurement import Measurement
 from models.core.quantity import Quantity
 from operations.recipe import recipe_url_modify, recipe_url_lookup, recipe_lookup, \
-                                recipe_step_modify, ingredient_lookup, ingredient_modify, \
-                                measurement_modify, measurement_lookup, quantity_modify
+                                recipe_step_modify, quantity_modify
 
 from operations.helper import quantity_helper
 
@@ -77,5 +74,4 @@ def save(recipe_obj, form):
     del values['csrf_token']
     del values['submit']
     session.query(Recipe).filter(Recipe.id == recipe_obj.id).update(values)
-
-    crud.save()
+    crud.save_update(session)

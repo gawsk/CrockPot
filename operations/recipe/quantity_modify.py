@@ -2,7 +2,6 @@
 
 from operations import crud
 from models.core.quantity import Quantity
-from operations.recipe import ingredient_lookup, recipe_lookup
 from operations.helper import quantity_helper
 
 def add(quantity_obj):
