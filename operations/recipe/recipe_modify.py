@@ -53,7 +53,7 @@ def add_recipe_info(user_id, details={}):
         if measurement:
             quantity_modify.add(Quantity(ingredient_id=ingredient, \
                                          measurement_id=measurement, \
-                                         recipe_id=recipe, \
+                                         recipe_id=recipe.id, \
                                          amount=amount))
         else:
             quantity_modify.add(Quantity(ingredient_id=ingredient, \
