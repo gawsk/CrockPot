@@ -10,6 +10,8 @@ from operations.recipe import recipe_url_modify, recipe_url_lookup, recipe_looku
                                 recipe_step_modify, ingredient_lookup, ingredient_modify, \
                                 measurement_modify, measurement_lookup, quantity_modify
 
+from operations.helper import quantity_helper
+
 # TODO: Only add recipe this info if user "edits"
 def add_recipe_info(user_id, details={}):
     """ Add a Recipe (and all its ingredients and steps)"""
@@ -45,40 +47,21 @@ def add_recipe_info(user_id, details={}):
         recipe_step_modify.add(recipe_step)
         step_num += 1
 
-    measurements = {'teaspoons', 'tablespoons', 'cup', 'cups', 'pints', 'pint', 'quarts', 'quart', \
-                        'ounce', 'ounces', 'dash', 'pinch', 'cube', 'cubes'}
 
     # Add all ingredients to database
     for ingrdt in details['ingredients']:
-        ingrdt = ingrdt.split(' ')
-        quantity = ingrdt[0].encode('utf8')
-        measurement, increments = None, None
-        if ingrdt[1] in measurements:
-            increments = ingrdt[1]
-            description = ' '.join(ingrdt[2:])
-            measurement = measurement_lookup.by_name(increments)
-        else:
-            description = ' '.join(ingrdt[1:])
-
-        ingredient = ingredient_lookup.by_name(description)
-        if ingredient is None:
-            ingredient_modify.add(Ingredient(name=description))
-            ingredient = ingredient_lookup.by_name(description)
-
-        if measurement is None and increments != None:
-            measurement_modify.add(Measurement(name=increments))
-            measurement = measurement_lookup.by_name(increments)
+        ingredient, measurement, amount = quantity_helper.parse(ingrdt)
 
         # Add to quantity table
         if measurement:
-            quantity_modify.add(Quantity(ingredient_id=ingredient.id, \
-                                         measurement_id=measurement.id, \
-                                         recipe_id=recipe.id, \
-                                         amount=quantity))
+            quantity_modify.add(Quantity(ingredient_id=ingredient, \
+                                         measurement_id=measurement, \
+                                         recipe_id=recipe, \
+                                         amount=amount))
         else:
-            quantity_modify.add(Quantity(ingredient_id=ingredient.id, \
+            quantity_modify.add(Quantity(ingredient_id=ingredient, \
                                          recipe_id=recipe.id, \
-                                         amount=quantity))
+                                         amount=amount))
     return True
 
 

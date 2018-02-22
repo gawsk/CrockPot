@@ -19,10 +19,21 @@ def pre_save():
     # session.save(obj)
     # session.commit()
 
-def save():
+def save(obj):
     """ Save an Object that has been edited in this session """
+    session = query_session.get_session()
+    session.begin_nested()
+
+    session.save(obj)
     session.commit()
-    
+
+def save_update(session):
+    """ Commit update changes in a given session """
+    session.commit()
+
+
+
+
 def delete(obj):
     """Delete an Object"""
     session = query_session.get_session()

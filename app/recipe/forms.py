@@ -15,8 +15,20 @@ class URLForm(FlaskForm):
     #     return len(URL) > 0 and URL is not None
 
 
-class EditRecipe(FlaskForm):
+class EditRecipeForm(FlaskForm):
     """ Form to edit a Recipe name """
     name = TextField("Name", [validators.Length(min=1, max=200)])
     description = TextField("Description", [validators.Length(min=1, max=500)])
+    submit = SubmitField('Submit')
+
+
+class EditRecipeStepForm(FlaskForm):
+    """ Form to edit a RecipeStep """
+    description = TextField("Description", [validators.Length(min=1)])
+    submit = SubmitField('Submit')
+
+
+class EditIngredientForm(FlaskForm):
+    """ Form to edit an Ingredient """
+    description = TextField("Description", [validators.Length(min=5, max=100)])
     submit = SubmitField('Submit')

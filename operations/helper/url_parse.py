@@ -4,7 +4,6 @@ import urllib2
 from bs4 import BeautifulSoup
 from operations.recipe import recipe_modify
 
-
 def allrecipes(url, user_id):
     """ Parser for allrecipes.com """
 

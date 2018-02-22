@@ -26,4 +26,10 @@ class Quantity(Config.Base):
 
 
     def __repr__(self):
-        return '<Quantity: {}>'.format(self.name)
+        return '<Quantity: {}>'.format(self.id)
+
+    def description(self):
+        """ Pretty print of full description """
+        measurement = self.measurement_obj.name
+        ingredient = self.ingredient_obj.name
+        return ' '.join([self.amount, measurement, ingredient])

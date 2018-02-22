@@ -10,14 +10,21 @@
     <div class="col-md-1"></div>
     <h2>Viewing specific recipe</h2>
     <table>
-      <li>{{ recipe.name }} - <a href="{{ url_for('recipe.edit', recipe_id=recipe.id) }}">Edit</a></li>
+      <li>{{ recipe.name }} - <a href="{{ url_for('recipe.edit_recipe', recipe_id=recipe.id) }}">Edit</a></li>
       <ul>
         {% for step in recipe.steps %}
-        <li>{{ step.num }} - {{ step.description }}</li>
+        <li>
+          {{ step.num }} - {{ step.description }}
+          <a href="{{ url_for('recipe.edit_step', recipe_step_id=step.id) }}">Edit</a>
+        </li>
         {% endfor %}
         <ul>
           {% for ingredient in recipe.quantity %}
-          <li>{{ ingredient.amount }} {{ ingredient.measurement_obj.name }} {{ ingredient.ingredient_obj.name }}</li>
+          <li>
+            {{ ingredient.amount }} {{ ingredient.measurement_obj.name }} {{ ingredient.ingredient_obj.name }}
+            <a href="{{ url_for('recipe.edit_ingredient', quantity_id=ingredient.id) }}">Edit</a>
+
+          </li>
           {% endfor %}
         </ul>
       </ul>
