@@ -23,7 +23,7 @@ def add_recipe_info(user_id, details={}):
         recipe_url = recipe_url_lookup.by_url(details['url'])
 
 
-    recipe = recipe_lookup.by_user_url(user_id, recipe_url.id)
+    recipe = recipe_lookup.by_user_url_id(user_id, recipe_url.id)
     if recipe:
         return False, None # Already have this recipe, return False
 
@@ -33,7 +33,7 @@ def add_recipe_info(user_id, details={}):
                         user_id=user_id,
                         url_id=recipe_url.id)
     add(recipe_obj)
-    recipe = recipe_lookup.by_user_url(user_id, recipe_url.id)
+    recipe = recipe_lookup.by_user_url_id(user_id, recipe_url.id)
 
 
     # Add steps to database
@@ -75,3 +75,16 @@ def save(recipe_obj, form):
     del values['submit']
     session.query(Recipe).filter(Recipe.id == recipe_obj.id).update(values)
     crud.save_update(session)
+
+
+def delete(recipe_obj):
+    """ Delete a recipe object """
+
+    if recipe_obj.steps:
+        for step in recipe_obj.steps:
+            recipe_step_modify.delete(step)
+
+    for quant_obj in recipe_obj.quantity:
+        quantity_modify.delete(quant_obj)
+
+    crud.delete(recipe_obj)

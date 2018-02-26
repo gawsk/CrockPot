@@ -11,7 +11,12 @@
     TODO: Make this to only view one of recipes... using all for testing purposes
     <table>
       {% for recipe in all_recipes %}
-        <li><a href="{{ url_for('recipe.view', recipe_id=recipe.id) }}">{{ recipe.name }}</a></li>
+        <li>
+          <a href="{{ url_for('recipe.view', recipe_id=recipe.id) }}">{{ recipe.name }}</a>
+          <form action="{{ url_for('recipe.delete_recipe') }}" method="post">
+            <button type="submit" name ="recipe_id" value="{{ recipe.id }}" class="btn btn-danger">DELETE</button>
+          </form>
+        </li>
         <ul>
           {% for step in recipe.steps %}
           <li>{{ step.num }} - {{ step.description }}</li>

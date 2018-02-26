@@ -105,3 +105,19 @@ def view_all():
     all_recipes = recipe_lookup.get_all()
 
     return render_template('recipe/view_all.html', all_recipes=all_recipes)
+
+
+
+@recipe.route('/recipe/delete_recipe', methods=['POST'])
+@login_required
+def delete_recipe():
+    """ Delete a specific recipe """
+    if request.method == 'POST':
+        recipe_id = request.form['recipe_id']
+        recipe = recipe_lookup.by_user_recipe_id(current_user.id, recipe_id)
+        if recipe:
+            recipe_modify.delete(recipe)
+            flash("Successfully deleted recipe")
+
+    all_recipes = recipe_lookup.get_all()
+    return redirect(url_for('recipe.view_all'))

@@ -3,6 +3,7 @@
 from operations import crud
 from models.core.quantity import Quantity
 from operations.helper import quantity_helper
+from operations.recipe import ingredient_modify, measurement_modify
 
 def add(quantity_obj):
     """ Add a Quantity Object to the database """
@@ -26,3 +27,8 @@ def save(quantity_obj, form):
                            .update(values)
 
     crud.save_update(session)
+
+
+def delete(quantity_obj):
+    """ Delete a Quantity Object to the database """
+    crud.delete(quantity_obj)
