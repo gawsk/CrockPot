@@ -1,6 +1,6 @@
 """ Views associated with recipe """
 
-from flask import render_template, request, url_for, redirect
+from flask import render_template, request, url_for, redirect, flash
 from flask_login import login_required
 from flask.ext.login import current_user
 
@@ -19,8 +19,11 @@ def add():
 
     if request.method == "POST":
         if form.validate_on_submit():
-            success, recipe_id = url_parse.allrecipes(request.form['URL'], current_user.id)
+            sucessful, recipe_id = url_parse.allrecipes(request.form['URL'], current_user.id)
             # TODO: if not sucessful, tell user they already have the object
+            if not sucessful:
+                flash('Already have that recipe')
+                return render_template('recipe/add_recipe.html', form=form)
             return redirect(url_for('recipe.view', recipe_id=recipe_id))
 
     return render_template('recipe/add_recipe.html', form=form)
