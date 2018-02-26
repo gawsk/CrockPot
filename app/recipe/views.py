@@ -119,5 +119,21 @@ def delete_recipe():
             recipe_modify.delete(recipe)
             flash("Successfully deleted recipe")
 
-    all_recipes = recipe_lookup.get_all()
+    return redirect(url_for('recipe.view_all'))
+
+
+@recipe.route('/recipe/delete_ingrd', methods=['POST'])
+@login_required
+def delete_ingredient():
+    """ Delete a specific ingredient """
+    if request.method == 'POST':
+        quantity_id = request.form['quantity_id']
+        recipe_id = request.form['recipe_id']
+        quantity = quantity_lookup.by_id(quantity_id)
+        if quantity:
+            quantity_modify.delete(quantity)
+            flash("Successfully deleted ingredient")
+
+        return redirect(url_for('recipe.view', recipe_id=recipe_id))
+
     return redirect(url_for('recipe.view_all'))
