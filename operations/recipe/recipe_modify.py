@@ -25,7 +25,7 @@ def add_recipe_info(user_id, details={}):
 
     recipe = recipe_lookup.by_user_url(user_id, recipe_url.id)
     if recipe:
-        return False # Already have this recipe, return False
+        return False, None # Already have this recipe, return False
 
     # Add Recipe information to Database and get it's ID
     recipe_obj = Recipe(name=details['name'],
@@ -59,7 +59,7 @@ def add_recipe_info(user_id, details={}):
             quantity_modify.add(Quantity(ingredient_id=ingredient, \
                                          recipe_id=recipe.id, \
                                          amount=amount))
-    return True
+    return True, recipe.id
 
 
 

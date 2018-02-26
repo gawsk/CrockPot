@@ -19,7 +19,10 @@ def add():
 
     if request.method == "POST":
         if form.validate_on_submit():
-            url_parse.allrecipes(request.form['URL'], current_user.id)
+            success, recipe_id = url_parse.allrecipes(request.form['URL'], current_user.id)
+            # TODO: if not sucessful, tell user they already have the object
+            return redirect(url_for('recipe.view', recipe_id=recipe_id))
+
     return render_template('recipe/add_recipe.html', form=form)
 
 @recipe.route('/recipe/view/', methods=['GET'])

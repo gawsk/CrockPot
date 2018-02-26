@@ -31,4 +31,7 @@ def allrecipes(url, user_id):
     # # Total time
     # for anchor in soup.findAll('time', {'itemprop':'totalTime'}):
     #     print anchor.text
-    recipe_modify.add_recipe_info(user_id, results)
+
+
+    #TODO: if not sucess, tell user they already have the recipe...
+    return recipe_modify.add_recipe_info(user_id, results)

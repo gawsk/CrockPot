@@ -30,6 +30,8 @@ class Quantity(Config.Base):
 
     def description(self):
         """ Pretty print of full description """
-        measurement = self.measurement_obj.name
-        ingredient = self.ingredient_obj.name
-        return ' '.join([self.amount, measurement, ingredient])
+        desc = [self.amount]
+        if self.measurement_id:
+            desc.append(self.measurement_obj.name)
+        desc.append(self.ingredient_obj.name)
+        return ' '.join(desc)
