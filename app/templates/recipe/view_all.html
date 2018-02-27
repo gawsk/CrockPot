@@ -12,19 +12,21 @@
     <table>
       {% for recipe in all_recipes %}
         <li>
-          <a href="{{ url_for('recipe.view', recipe_id=recipe.id) }}">{{ recipe.name }}</a>
+          <a href="{{ url_for('recipe.view', recipe_id=recipe.id) }}">
+            <button type="submit" name ="quantity_id" class="btn btn-info">EDIT</button>
+          </a>
           <form action="{{ url_for('recipe.delete_recipe') }}" style="display: inline;" method="post">
             <button type="submit" name ="recipe_id" value="{{ recipe.id }}" class="btn btn-danger">DELETE</button>
           </form>
+          <h3 style="display: inline;"><b>{{ recipe.name }}</b></h3>
         </li>
         <ul>
           {% for step in recipe.steps %}
-          <li>{{ step.num }} - {{ step.description }}</li>
+          <li><b>{{ step.num }}</b> - {{ step.description }}</li>
           {% endfor %}
           <ul>
             {% for ingredient in recipe.quantity %}
             <li>
-              <button type="submit" name ="quantity_id" value="{{ ingredient.id }}" class="btn btn-danger">DELETE</button>
               {{ ingredient.amount }} {{ ingredient.measurement_obj.name }} {{ ingredient.ingredient_obj.name }}
               <form action="{{ url_for('recipe.delete_ingredient') }}" method="post">
                 <input type="hidden" name ="recipe_id" value="{{ recipe.id }}" />

@@ -18,7 +18,7 @@
         {{ var.form.hidden_tag() }}
         <legend>Edit Recipe Name and Description</legend>
         {{ wtf.form_field(var.form.name, class='form-control') }}
-        {{ wtf.form_field(var.form.description, class='form-control') }}
+        {{ wtf.form_field(var.form.description, class='form-control', rows=5) }}
         {{ render_field(var.form.submit, class='btn btn-success btn-block') }}
       </form>
     <div class="col-md-1"></div>

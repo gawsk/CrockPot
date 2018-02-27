@@ -2,6 +2,8 @@
 
 from flask_wtf import FlaskForm
 from wtforms import SubmitField, TextField, validators
+from wtforms.fields import StringField
+from wtforms.widgets import TextArea
 
 
 class URLForm(FlaskForm):
@@ -18,13 +20,13 @@ class URLForm(FlaskForm):
 class EditRecipeForm(FlaskForm):
     """ Form to edit a Recipe name """
     name = TextField("Name", [validators.Length(min=1, max=200)])
-    description = TextField("Description", [validators.Length(min=1, max=500)])
+    description = StringField("Description", widget=TextArea())
     submit = SubmitField('Submit')
 
 
 class EditRecipeStepForm(FlaskForm):
     """ Form to edit a RecipeStep """
-    description = TextField("Description", [validators.Length(min=1)])
+    description = StringField("Description", widget=TextArea())
     submit = SubmitField('Submit')
 
 

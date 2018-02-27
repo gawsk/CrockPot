@@ -17,7 +17,7 @@
       <form action="{{ url_for('recipe.edit_step', recipe_step_id=var.recipe_step_id) }}" method="post">
         {{ var.form.hidden_tag() }}
         <legend>Edit Recipe Step</legend>
-        {{ wtf.form_field(var.form.description, class='form-control') }}
+        {{ wtf.form_field(var.form.description, class='form-control', rows=5) }}
         {{ render_field(var.form.submit, class='btn btn-success btn-block') }}
       </form>
     <div class="col-md-1"></div>
