@@ -7,6 +7,7 @@
 {% block content %}
 <div class="container">
   <div class="row">
+    {{ utils.flashed_messages() }}
     <div class="col-md-1"></div>
     <h2>Viewing specific recipe</h2>
     <table>
@@ -30,11 +31,11 @@
             <a href="{{ url_for('recipe.edit_ingredient', quantity_id=ingredient.id) }}">
               <button type="submit" name ="quantity_id" class="btn btn-info">EDIT</button>
             </a>
-            <button type="submit" name ="quantity_id" value="{{ ingredient.id }}" class="btn btn-danger">DELETE</button>
-            {{ ingredient.amount }} {{ ingredient.measurement_obj.name }} {{ ingredient.ingredient_obj.name }}
-            <form action="{{ url_for('recipe.delete_ingredient') }}" method="post">
+            <form action="{{ url_for('recipe.delete_ingredient') }}" method="post" style='display:inline;margin:0px;padding:0px;'>
               <input type="hidden" name ="recipe_id" value="{{ recipe.id }}" />
+              <button type="submit" name ="quantity_id" value="{{ ingredient.id }}" class="btn btn-danger">DELETE</button>
             </form>
+            {{ ingredient.amount }} {{ ingredient.measurement_obj.name }} {{ ingredient.ingredient_obj.name }}
 
           </li>
           {% endfor %}

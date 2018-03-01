@@ -20,7 +20,7 @@ class URLForm(FlaskForm):
 class EditRecipeForm(FlaskForm):
     """ Form to edit a Recipe name """
     name = TextField("Name", [validators.Length(min=1, max=200)])
-    description = StringField("Description", widget=TextArea())
+    description = StringField("Description", [validators.Length(min=0, max=500)], widget=TextArea())
     submit = SubmitField('Submit')
 
 
