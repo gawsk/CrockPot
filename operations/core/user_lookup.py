@@ -13,7 +13,7 @@ def by_id(user_id):
     """ Get User by id """
 
     session = query_session.get_session()
-    return session.query(User).filter(User.id == user_id).all()
+    return session.query(User).filter(User.id == user_id).first()
 
 def by_username(username):
     """ Get User by username """

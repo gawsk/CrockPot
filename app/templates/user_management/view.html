@@ -1,0 +1,26 @@
+{% extends "sidebar.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% from "_formhelpers.html" import render_field %}
+
+
+{% block title %}User Information{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="row">
+    {{ utils.flashed_messages() }}
+    <div class="col-md-1"></div>
+    <h2>
+      Your profile
+      <a href="{{ url_for('user_mgmt.edit') }}" class="btn btn-warning">Edit</a>
+    </h2>
+    <ui>
+      <li>Email - {{ var.user_obj.email }}</li>
+      <li>Name - {{ var.user_obj.name }}</li>
+      <li>Username - {{ var.user_obj.username }}</li>
+    </ui>
+
+
+    <div class="col-md-1"></div>
+  </div>
+</div>
+{% endblock %}
