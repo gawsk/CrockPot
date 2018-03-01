@@ -1,0 +1,26 @@
+{% extends "sidebar.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% from "_formhelpers.html" import render_field %}
+
+
+{% block title %}Add Allergy to your profile{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-1"></div>
+      {% for field, errors in var.form.errors.iteritems() %}
+        <div class="alert alert-error">
+            {{ var.form[field].label }}: {{ ', '.join(errors) }}
+        </div>
+      {% endfor %}
+      {{ utils.flashed_messages() }}
+      <form action="{{ url_for('user_mgmt.add_allergy') }}" method="post">
+        {{ var.form.hidden_tag() }}
+        <legend>Add Allergy</legend>
+        {{ wtf.form_field(var.form.allergy_id, class='form-control') }}
+        {{ render_field(var.form.submit, class='btn btn-success btn-block') }}
+      </form>
+    <div class="col-md-1"></div>
+  </div>
+</div>
+{% endblock %}

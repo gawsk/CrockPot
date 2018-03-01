@@ -4,8 +4,10 @@ from flask_login import UserMixin
 from app import login_manager
 from config import Config
 from sqlalchemy import Column, BigInteger, Integer, String, ForeignKey
+from sqlalchemy.orm import relationship
 from models.security.role import Role
 from operations.security import custom_hash
+from models.core.user_allergy import UserAllergy
 
 
 class User(Config.Base, UserMixin):
@@ -21,6 +23,7 @@ class User(Config.Base, UserMixin):
     password = Column('password', String(150))
     role_id = Column('role_id', Integer, ForeignKey(Role.id), default=Role.USER)
 
+    allergies = relationship("UserAllergy")
 
     def set_password(self):
         """ Store the password hashed """

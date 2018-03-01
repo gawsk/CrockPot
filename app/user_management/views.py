@@ -5,9 +5,9 @@ from flask_login import login_required
 from flask.ext.login import current_user
 
 from app.user_management import user_mgmt
-from app.user_management.forms import EditUserForm
-from operations.core import user_modify, user_lookup
-
+from app.user_management.forms import EditUserForm, AddAllergyForm
+from operations.core import user_modify, user_lookup, user_allergy_modify
+from models.core.user_allergy import UserAllergy
 
 @user_mgmt.route('/user/')
 def view():
@@ -30,3 +30,18 @@ def edit():
         form = EditUserForm(obj=current_user)
 
     return render_template('user_management/edit.html', var={'form':form} )
+
+
+@user_mgmt.route('/user/allergy', methods=['POST', 'GET'])
+def add_allergy():
+    """ Add an allergy to the User """
+    form = AddAllergyForm(request.form)
+
+    if request.method == "POST":
+        if form.validate_on_submit():
+            user_allergy_modify.add(current_user.id, request.form)
+            return redirect(url_for('user_mgmt.view'))
+    else:
+        form = AddAllergyForm(request.form)
+
+    return render_template('user_management/add_allergy.html', var={'form':form} )
