@@ -23,7 +23,15 @@
     Allergies
     <ui>
       {% for allergy in var.user_obj.allergies %}
-        <li>{{ allergy.name }}</li>
+        <li>
+          {{ allergy.name }}
+          <form action="{{ url_for('user_mgmt.delete_allergy') }}" method="post" style='display:inline;margin:0px;padding:0px;'>
+            <input type="hidden" name ="allergy_id" value="{{ allergy.allergy_id }}" />
+            <button type="submit" name ="submit" class="btn btn-danger">DELETE</button>
+          </form>
+        </li>
+
+
       {% endfor %}
     </ui>
 

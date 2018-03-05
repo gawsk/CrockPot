@@ -13,4 +13,4 @@ def add(user_id, form):
 
 def delete(user_allergy_obj):
     """Delete a UserAllergy"""
-    return crud.delete(user_obj)
+    return crud.delete(user_allergy_obj)

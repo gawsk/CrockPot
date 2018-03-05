@@ -1,12 +1,12 @@
 """ Views associated with user managemetn """
 
-from flask import render_template, request, redirect, url_for
+from flask import render_template, request, redirect, url_for, flash
 from flask_login import login_required
 from flask.ext.login import current_user
 
 from app.user_management import user_mgmt
 from app.user_management.forms import EditUserForm, AddAllergyForm
-from operations.core import user_modify, user_lookup, user_allergy_modify, allergy_lookup
+from operations.core import user_modify, user_lookup, user_allergy_modify, allergy_lookup, user_allergy_lookup
 from models.core.user_allergy import UserAllergy
 
 @user_mgmt.route('/user/')
@@ -44,6 +44,20 @@ def add_allergy():
     if request.method == "POST":
         if form.validate_on_submit():
             user_allergy_modify.add(current_user.id, request.form)
-            return redirect(url_for('user_mgmt.view'))    
+            return redirect(url_for('user_mgmt.view'))
 
     return render_template('user_management/add_allergy.html', var={'form':form} )
+
+
+@user_mgmt.route('/user/delete_allergy', methods=['POST'])
+@login_required
+def delete_allergy():
+    """ Delete a specific recipe """
+    if request.method == 'POST':
+        allergy_id = request.form['allergy_id']
+        user_allergy_obj = user_allergy_lookup.by_user_allergy(current_user.id, allergy_id)
+        if user_allergy_obj:
+            user_allergy_modify.delete(user_allergy_obj)
+            flash("Successfully deleted Allergy")
+
+    return redirect(url_for('user_mgmt.view'))
