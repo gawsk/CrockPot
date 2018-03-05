@@ -21,10 +21,11 @@ def by_user_url_id(user_id, recipe_url_id):
                                 .first()
 
 
-def get_all():
-    """ Get all Recipes """
+def get_all(user_id):
+    """ Get all Recipes owned by a user """
     session = query_session.get_session()
-    return session.query(Recipe).all()
+
+    return session.query(Recipe).filter(Recipe.user_id == user_id).all()
 
 def by_id(recipe_id):
     """ Get Recipe by Id """

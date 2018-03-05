@@ -102,7 +102,7 @@ def edit_ingredient():
 @login_required
 def view_all():
     """ View all Recipes """
-    all_recipes = recipe_lookup.get_all()
+    all_recipes = recipe_lookup.get_all(current_user.id)
 
     return render_template('recipe/view_all.html', all_recipes=all_recipes)
 
