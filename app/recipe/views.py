@@ -122,7 +122,7 @@ def delete_recipe():
     return redirect(url_for('recipe.view_all'))
 
 
-@recipe.route('/recipe/delete_ingrd', methods=['POST'])
+@recipe.route('/recipe/delete_ingredient', methods=['POST'])
 @login_required
 def delete_ingredient():
     """ Delete a specific ingredient """

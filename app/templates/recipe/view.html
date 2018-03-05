@@ -33,6 +33,7 @@
             </a>
             <form action="{{ url_for('recipe.delete_ingredient') }}" method="post" style='display:inline;margin:0px;padding:0px;'>
               <input type="hidden" name ="recipe_id" value="{{ recipe.id }}" />
+              <input type="hidden" name ="quantity_id" value="{{ ingredient.id }}" />
               <button type="submit" name ="submit" value="submit" class="btn btn-danger">DELETE</button>
             </form>
             {{ ingredient.amount }} {{ ingredient.measurement_obj.name }} {{ ingredient.ingredient_obj.name }}
