@@ -4,7 +4,7 @@ from flask_wtf import FlaskForm
 from wtforms import SubmitField, TextField, validators
 from wtforms.fields import StringField, SelectField
 from wtforms.widgets import TextArea
-from operations.core import allergy_lookup
+
 
 class EditUserForm(FlaskForm):
     """ Form to edit a User """
@@ -18,5 +18,5 @@ class EditUserForm(FlaskForm):
 
 class AddAllergyForm(FlaskForm):
     """ Form to edit an Allergy owned by a user """
-    allergy_id = SelectField("Allergy", choices=[(a.id, a.name) for a in allergy_lookup.get_all()], coerce=int )
+    allergy_id = SelectField("Allergy", coerce=int )
     submit = SubmitField('Submit')

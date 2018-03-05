@@ -16,6 +16,7 @@
       {{ utils.flashed_messages() }}
       <form action="{{ url_for('user_mgmt.add_allergy') }}" method="post">
         {{ var.form.hidden_tag() }}
+        {{ var.form.csrf_token }}
         <legend>Add Allergy</legend>
         {{ wtf.form_field(var.form.allergy_id, class='form-control') }}
         {{ render_field(var.form.submit, class='btn btn-success btn-block') }}
