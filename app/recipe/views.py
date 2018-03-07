@@ -19,12 +19,21 @@ def add():
 
     if request.method == "POST":
         if form.validate_on_submit():
-            sucessful, recipe_id = url_parse.allrecipes(request.form['URL'], current_user.id)
-            # TODO: if not sucessful, tell user they already have the object
-            if not sucessful:
-                flash('Already have that recipe')
-                return render_template('recipe/add_recipe.html', form=form)
-            return redirect(url_for('recipe.view', recipe_id=recipe_id))
+
+            #If this is not a valid recipe, return a defualt message
+            try:
+              sucessful, recipe_id = url_parse.allrecipes(request.form['URL'], current_user.id)
+
+              #if not sucessful, tell user they already have the object
+              if not sucessful:
+                  flash('Already have that recipe')
+                  return render_template('recipe/add_recipe.html', form=form)
+              return redirect(url_for('recipe.view', recipe_id=recipe_id))
+
+            except:
+              flash('ERROR: This is not a valid recipe!')
+              return render_template('recipe/add_recipe.html', form=form)
+
 
     return render_template('recipe/add_recipe.html', form=form)
 
