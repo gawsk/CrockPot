@@ -3,26 +3,44 @@
 {% from "_formhelpers.html" import render_field %}
 
 
-{% block title %}View All Recpies{% endblock %}
+{% block title %}View Recipe{% endblock %}
 {% block content %}
 <div class="container">
   <div class="row">
+    {{ utils.flashed_messages() }}
     <div class="col-md-1"></div>
-    TODO: Make this to only view one of recipes... using all for testing purposes
+    <h2>Viewing specific recipe</h2>
     <table>
-      {% for recipe in all_recipes %}
-        <li>{{ recipe.name }}</li>
+      <li>
+        <a href="{{ url_for('recipe.edit_recipe', recipe_id=recipe.id) }}">
+          <button type="submit" name ="quantity_id" class="btn btn-info">EDIT</button>
+        </a>
+        <h3 style="display: inline;"><b>{{ recipe.name }}</b></h3>
+      </li>
+
+      <ul>
+        {% for step in recipe.steps %}
+        <li>
+          <b>{{ step.num }}</b> - {{ step.description }}
+          <a href="{{ url_for('recipe.edit_step', recipe_step_id=step.id) }}">Edit</a>
+        </li>
+        {% endfor %}
         <ul>
-          {% for step in recipe.steps %}
-          <li>{{ step.num }} - {{ step.description }}</li>
+          {% for ingredient in recipe.quantity %}
+          <li>
+            <a href="{{ url_for('recipe.edit_ingredient', quantity_id=ingredient.id) }}">
+              <button type="submit" name ="quantity_id" class="btn btn-info">EDIT</button>
+            </a>
+            <form action="{{ url_for('recipe.delete_ingredient') }}" method="post" style='display:inline;margin:0px;padding:0px;'>
+              <input type="hidden" name ="recipe_id" value="{{ recipe.id }}" />
+              <button type="submit" name ="quantity_id" value="{{ ingredient.id }}" class="btn btn-danger">DELETE</button>
+            </form>
+            {{ ingredient.amount }} {{ ingredient.measurement_obj.name }} {{ ingredient.ingredient_obj.name }}
+
+          </li>
           {% endfor %}
-          <ul>
-            {% for ingredient in recipe.quantity %}
-            <li>{{ ingredient.amount }} {{ ingredient.measurement_obj.name }} {{ ingredient.ingredient_obj.name }}</li>
-            {% endfor %}
-          </ul>
         </ul>
-      {% endfor %}
+      </ul>
     </table>
     <div class="col-md-1"></div>
   </div>

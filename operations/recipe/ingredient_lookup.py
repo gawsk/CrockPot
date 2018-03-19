@@ -9,6 +9,11 @@ def by_name(name):
     session = query_session.get_session()
     return session.query(Ingredient).filter(Ingredient.name == name).first()
 
+def by_id(ingredient_obj):
+    """ Get an Ingredient by ID """
+    session = query_session.get_session()
+    return session.query(Ingredient).filter(Ingredient.id == ingredient_obj).first()
+
 
 def get_all():
     """ Get all ingredients """

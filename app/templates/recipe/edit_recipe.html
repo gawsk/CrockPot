@@ -1,0 +1,27 @@
+{% extends "sidebar.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% from "_formhelpers.html" import render_field %}
+
+
+{% block title %}Edit Recipe{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-1"></div>
+      {% for field, errors in var.form.errors.iteritems() %}
+        <div class="alert alert-error">
+            {{ var.form[field].label }}: {{ ', '.join(errors) }}
+        </div>
+      {% endfor %}
+      {{ utils.flashed_messages() }}
+      <form action="{{ url_for('recipe.edit_recipe', recipe_id=var.recipe_id) }}" method="post">
+        {{ var.form.hidden_tag() }}
+        <legend>Edit Recipe Name and Description</legend>
+        {{ wtf.form_field(var.form.name, class='form-control') }}
+        {{ wtf.form_field(var.form.description, class='form-control', rows=5) }}
+        {{ render_field(var.form.submit, class='btn btn-success btn-block') }}
+      </form>
+    <div class="col-md-1"></div>
+  </div>
+</div>
+{% endblock %}

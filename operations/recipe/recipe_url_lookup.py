@@ -3,6 +3,7 @@
 from models.core.recipe_url import RecipeURL
 from operations import query_session
 
+
 def by_url(url):
     """ Get RecipeURL by url """
 

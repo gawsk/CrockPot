@@ -3,12 +3,11 @@
 from operations import crud
 from models.core.recipe import Recipe
 from models.core.recipe_step import RecipeStep
-from models.core.ingredient import Ingredient
-from models.core.measurement import Measurement
 from models.core.quantity import Quantity
 from operations.recipe import recipe_url_modify, recipe_url_lookup, recipe_lookup, \
-                                recipe_step_modify, ingredient_lookup, ingredient_modify, \
-                                measurement_modify, measurement_lookup, quantity_modify
+                                recipe_step_modify, quantity_modify
+
+from operations.helper import quantity_helper
 
 # TODO: Only add recipe this info if user "edits"
 def add_recipe_info(user_id, details={}):
@@ -24,9 +23,9 @@ def add_recipe_info(user_id, details={}):
         recipe_url = recipe_url_lookup.by_url(details['url'])
 
 
-    recipe = recipe_lookup.by_user_url(user_id, recipe_url.id)
+    recipe = recipe_lookup.by_user_url_id(user_id, recipe_url.id)
     if recipe:
-        return False # Already have this recipe, return False
+        return False, None # Already have this recipe, return False
 
     # Add Recipe information to Database and get it's ID
     recipe_obj = Recipe(name=details['name'],
@@ -34,7 +33,7 @@ def add_recipe_info(user_id, details={}):
                         user_id=user_id,
                         url_id=recipe_url.id)
     add(recipe_obj)
-    recipe = recipe_lookup.by_user_url(user_id, recipe_url.id)
+    recipe = recipe_lookup.by_user_url_id(user_id, recipe_url.id)
 
 
     # Add steps to database
@@ -45,44 +44,47 @@ def add_recipe_info(user_id, details={}):
         recipe_step_modify.add(recipe_step)
         step_num += 1
 
-    measurements = {'teaspoons', 'tablespoons', 'cup', 'cups', 'pints', 'pint', 'quarts', 'quart', \
-                        'ounce', 'ounces', 'dash', 'pinch', 'cube', 'cubes'}
 
     # Add all ingredients to database
     for ingrdt in details['ingredients']:
-        ingrdt = ingrdt.split(' ')
-        quantity = ingrdt[0].encode('utf8')
-        measurement, increments = None, None
-        if ingrdt[1] in measurements:
-            increments = ingrdt[1]
-            description = ' '.join(ingrdt[2:])
-            measurement = measurement_lookup.by_name(increments)
-        else:
-            description = ' '.join(ingrdt[1:])
-
-        ingredient = ingredient_lookup.by_name(description)
-        if ingredient is None:
-            ingredient_modify.add(Ingredient(name=description))
-            ingredient = ingredient_lookup.by_name(description)
-
-        if measurement is None and increments != None:
-            measurement_modify.add(Measurement(name=increments))
-            measurement = measurement_lookup.by_name(increments)
+        ingredient, measurement, amount = quantity_helper.parse(ingrdt)
 
         # Add to quantity table
         if measurement:
-            quantity_modify.add(Quantity(ingredient_id=ingredient.id, \
-                                         measurement_id=measurement.id, \
+            quantity_modify.add(Quantity(ingredient_id=ingredient, \
+                                         measurement_id=measurement, \
                                          recipe_id=recipe.id, \
-                                         amount=quantity))
+                                         amount=amount))
         else:
-            quantity_modify.add(Quantity(ingredient_id=ingredient.id, \
+            quantity_modify.add(Quantity(ingredient_id=ingredient, \
                                          recipe_id=recipe.id, \
-                                         amount=quantity))
-    return True
+                                         amount=amount))
+    return True, recipe.id
 
 
 
 def add(recipe_obj):
     """ Add a recipe object """
     crud.add(recipe_obj)
+
+def save(recipe_obj, form):
+    """ Save a recipe object from a form """
+    session = crud.pre_save()
+    values = form.to_dict()
+    del values['csrf_token']
+    del values['submit']
+    session.query(Recipe).filter(Recipe.id == recipe_obj.id).update(values)
+    crud.save_update(session)
+
+
+def delete(recipe_obj):
+    """ Delete a recipe object """
+
+    if recipe_obj.steps:
+        for step in recipe_obj.steps:
+            recipe_step_modify.delete(step)
+
+    for quant_obj in recipe_obj.quantity:
+        quantity_modify.delete(quant_obj)
+
+    crud.delete(recipe_obj)
