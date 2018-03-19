@@ -42,4 +42,7 @@ def create_app(config_name):
     from app.recipe import recipe as recipe_blueprint
     app.register_blueprint(recipe_blueprint)
 
+    from app.user_management import user_mgmt as user_mgmt_blueprint
+    app.register_blueprint(user_mgmt_blueprint)
+
     return app

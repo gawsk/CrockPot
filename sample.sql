@@ -95,5 +95,36 @@ CREATE TABLE quantity (
 );
 
 
+-- Create allergies table with common allergies
+CREATE TABLE allergy (
+  id BIGINT NOT NULL AUTO_INCREMENT,
+  name VARCHAR(100) NOT NULL,
+  PRIMARY KEY(id)
+);
+
+INSERT INTO allergy VALUES(1, "milk");
+INSERT INTO allergy VALUES(2, "peanuts");
+INSERT INTO allergy VALUES(3, "eggs");
+INSERT INTO allergy VALUES(4, "nuts");
+INSERT INTO allergy VALUES(5, "soy");
+INSERT INTO allergy VALUES(6, "wheat");
+INSERT INTO allergy VALUES(7, "fish");
+INSERT INTO allergy VALUES(8, "shellfish");
+INSERT INTO allergy VALUES(9, "corn");
+INSERT INTO allergy VALUES(10, "gelatin");
+INSERT INTO allergy VALUES(11, "sesame");
+INSERT INTO allergy VALUES(12, "sunflower");
+INSERT INTO allergy VALUES(13, "poppy");
+
+
+-- Create user allergies table to show relationship
+CREATE TABLE user_allergy (
+  allergy_id BIGINT NOT NULL,
+  user_id BIGINT NOT NULL,
+  FOREIGN KEY(allergy_id) REFERENCES allergy(id),
+  FOREIGN KEY(user_id) REFERENCES user(id),
+  UNIQUE(allergy_id, user_id)
+);
+
 
 COMMIT;

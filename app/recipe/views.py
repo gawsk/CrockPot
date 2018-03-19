@@ -111,7 +111,7 @@ def edit_ingredient():
 @login_required
 def view_all():
     """ View all Recipes """
-    all_recipes = recipe_lookup.get_all()
+    all_recipes = recipe_lookup.get_all(current_user.id)
 
     return render_template('recipe/view_all.html', all_recipes=all_recipes)
 
@@ -131,7 +131,7 @@ def delete_recipe():
     return redirect(url_for('recipe.view_all'))
 
 
-@recipe.route('/recipe/delete_ingrd', methods=['POST'])
+@recipe.route('/recipe/delete_ingredient', methods=['POST'])
 @login_required
 def delete_ingredient():
     """ Delete a specific ingredient """
