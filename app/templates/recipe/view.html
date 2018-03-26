@@ -2,6 +2,33 @@
 {% import "bootstrap/wtf.html" as wtf %}
 {% from "_formhelpers.html" import render_field %}
 
+{% block styles %}
+  {{ super() }}
+  <style>
+    .edit_button { display:none; }
+    #check_off { display:inline; }
+  </style>
+  <link rel='stylesheet' href="{{ url_for('static', filename='stylesheets/checkboxes.css') }}" />
+
+{% endblock %}
+
+{% block scripts %}
+  <script>
+  function edit_recipe(){
+    var buttons = document.getElementsByClassName('edit_button');
+    for(var i = 0; i < buttons.length; i++){
+      buttons[i].style.display="inline";
+    }
+
+    var checkboxes = document.getElementsByClassName('checkmark');
+    for(var i = 0; i < checkboxes.length; i++){
+      checkboxes[i].style.display="none";
+    }
+
+    document.getElementById('editable').style.display="none";
+  }
+  </script>
+{% endblock %}
 
 {% block title %}View Recipe{% endblock %}
 {% block content %}
@@ -10,9 +37,11 @@
     {{ utils.flashed_messages() }}
     <div class="col-md-1"></div>
     <h2>Viewing specific recipe</h2>
+    <button type="button" onclick="edit_recipe()" id="editable" class="btn btn-info">
+      Click me to Edit this recipe.</button>
     <table>
       <li>
-        <a href="{{ url_for('recipe.edit_recipe', recipe_id=recipe.id) }}">
+        <a href="{{ url_for('recipe.edit_recipe', recipe_id=recipe.id) }}" class='edit_button'>
           <button type="submit" name ="quantity_id" class="btn btn-info">EDIT</button>
         </a>
         <h3 style="display: inline;"><b>{{ recipe.name }}</b></h3>
@@ -20,21 +49,26 @@
 
       <ul>
         {% for step in recipe.steps %}
-        <li>
-          <b>{{ step.num }}</b> - {{ step.description }}
-          <a href="{{ url_for('recipe.edit_step', recipe_step_id=step.id) }}">Edit</a>
-        </li>
+        <label class="container"><b>{{ step.num }}</b> - {{ step.description }}
+            <a href="{{ url_for('recipe.edit_step', recipe_step_id=step.id) }}" class='edit_button'>Edit</a>
+            <input type="checkbox">
+            <span class="checkmark"></span>
+          </label>
         {% endfor %}
-        <ul>
+      <ul>
+    </table>
+
+    <table>
+          <h2>Ingredients</h2>
           {% for ingredient in recipe.quantity %}
           <li>
-            <a href="{{ url_for('recipe.edit_ingredient', quantity_id=ingredient.id) }}">
+            <a href="{{ url_for('recipe.edit_ingredient', quantity_id=ingredient.id) }}" class='edit_button'>
               <button type="submit" name ="quantity_id" class="btn btn-info">EDIT</button>
             </a>
             <form action="{{ url_for('recipe.delete_ingredient') }}" method="post" style='display:inline;margin:0px;padding:0px;'>
               <input type="hidden" name ="recipe_id" value="{{ recipe.id }}" />
               <input type="hidden" name ="quantity_id" value="{{ ingredient.id }}" />
-              <button type="submit" name ="submit" value="submit" class="btn btn-danger">DELETE</button>
+              <button type="submit" name ="submit" value="submit" class="btn btn-danger edit_button">DELETE</button>
             </form>
             {{ ingredient.amount }} {{ ingredient.measurement_obj.name }} {{ ingredient.ingredient_obj.name }}
 
