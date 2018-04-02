@@ -1,0 +1,25 @@
+{% extends "sidebar.html" %}
+
+{% block content %}
+Results of searching for an ingredient
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-1"></div>
+    {{ utils.flashed_messages() }}
+    {% if var.results.rowcount > 0 %}
+      <table>
+        {% for recipe in var.results %}
+          <li>
+            <a href="{{ url_for('recipe.view', recipe_id=recipe.id) }}">
+            <h3 style="display: inline;"><b>{{ recipe.name }}</b></h3>
+          </li>
+        {% endfor %}
+      </table>
+    {% else %}
+      <span>NO RESULTS</span>
+    {% endif %}
+    <div class="col-md-1"></div>
+  </div>
+</div>
+{% endblock %}
