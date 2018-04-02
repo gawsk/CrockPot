@@ -1,5 +1,8 @@
 <!--Nav Bar -->
 {% extends "bootstrap/base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% from "_formhelpers.html" import render_field %}
+
 {% import "bootstrap/utils.html" as utils %}
 
 
@@ -28,6 +31,12 @@
                     <li><a href="{{ url_for('recipe.add') }}">Add Recipe</a></li>
                     <li><a href="{{ url_for('recipe.view_all') }}">View all Recipes</a></li>
                     <li><a href="{{ url_for('user_mgmt.view') }}">Your profile</a></li>
+                    <form action="{{ url_for('search.ingrd') }}" method="post">
+                      {{ search_form.hidden_tag() }}
+                      <legend>Search </legend>
+                      {{ wtf.form_field(search_form.name, class='form-control', placeholder='Search...') }}
+                      {{ render_field(search_form.submit, class='btn btn-success btn-block') }}
+                    </form>
                   {% else %}
                     <li><a href="{{ url_for('auth.register') }}">Register</a></li>
                     <li><a href="{{ url_for('auth.login') }}">Login</a></li>

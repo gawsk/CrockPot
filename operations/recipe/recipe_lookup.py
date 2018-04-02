@@ -1,6 +1,7 @@
 """ Module provides functions for querying RecipeUrl Objects """
 
 from models.core.recipe import Recipe
+from models.core.ingredient import Ingredient
 from operations import query_session
 
 
