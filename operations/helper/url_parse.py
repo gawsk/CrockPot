@@ -19,6 +19,7 @@ def allrecipes(url, user_id):
     results['ingredients'] = [element.text for element in \
                                 soup.findAll('span', {'class':'recipe-ingred_txt added'})]
     results['steps'] = [element.text for element in soup.findAll('li', {'class':'step'})]
+    results['image_url'] = soup.findAll("img", {"class":"rec-photo"})[0]['src']
 
     # # Prep time
     # for anchor in soup.findAll('time', {'itemprop':'prepTime'}):

@@ -59,6 +59,11 @@ def add_recipe_info(user_id, details={}):
             quantity_modify.add(Quantity(ingredient_id=ingredient, \
                                          recipe_id=recipe.id, \
                                          amount=amount))
+    # Save the image of the recipe
+    img_url = details['image_url']
+    file_name = "app/static/img/" + str(recipe_url.id) + ".jpg"
+    urllib.urlretrieve(img_url, file_name)
+
     return True, recipe.id
 
 
