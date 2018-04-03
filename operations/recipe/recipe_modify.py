@@ -8,6 +8,7 @@ from operations.recipe import recipe_url_modify, recipe_url_lookup, recipe_looku
                                 recipe_step_modify, quantity_modify
 
 from operations.helper import quantity_helper
+import urllib
 
 # TODO: Only add recipe this info if user "edits"
 def add_recipe_info(user_id, details={}):
@@ -61,8 +62,14 @@ def add_recipe_info(user_id, details={}):
                                          amount=amount))
     # Save the image of the recipe
     img_url = details['image_url']
+    print img_url
     file_name = "app/static/img/" + str(recipe_url.id) + ".jpg"
-    urllib.urlretrieve(img_url, file_name)
+    print file_name
+    try:
+        urllib.urlretrieve(img_url, file_name)
+    except Exception as e:
+        print(e)
+    print "test"
 
     return True, recipe.id
 
