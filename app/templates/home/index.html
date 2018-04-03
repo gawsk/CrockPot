@@ -7,8 +7,8 @@
         {% for recipe in lst %}
         <div class="w3-quarter">
           <img src="{{ recipe.img_path }}" style="width:100%">
-          <h3>The Perfect Sandwich, A Real NYC Classic</h3>
-          <p>Just some random text, lorem ipsum text praesent tincidunt ipsum lipsum.</p>
+          <h3>{{ recipe.name }}</h3>
+          <p>{{ recipe.description }}</p>
         </div>
         {% endfor %}
       </div>
