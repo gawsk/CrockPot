@@ -32,7 +32,7 @@ def login():
         if user is not None and user.verify_password(form.password.data):
             login_user(user)
 
-            return redirect(url_for('home.dashboard'))
+            return redirect(url_for('home.index'))
         else:
             flash('Invalid email or password.')
 
