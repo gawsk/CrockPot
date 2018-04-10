@@ -14,6 +14,9 @@ TEST_DB = 'mysql://root:root@localhost/crockpot_db'
 
 testuser_email = "test@rpi.edu"
 testuser_password = "test"
+testURL_INVALID = "http://www.youtube.com/"
+testURL_VALID = "https://www.allrecipes.com/recipe/84000/sicilian-pineapple-pork-roast/"
+
 
 
 class BasicTests(unittest.TestCase):
@@ -71,7 +74,7 @@ class BasicTests(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         print "PASSED",
 
-
+    '''
     #Test the DASHBOARD page to ensure it loads
     #  Actually this redirects to the login page, and gives you a message
     #    that says, "You must be logged in to access this page. "
@@ -80,6 +83,7 @@ class BasicTests(unittest.TestCase):
         response = self.app.get('/dashboard', follow_redirects=True)
         self.assertEqual(response.status_code, 200)
         print "PASSED",
+    '''
 
 
 ########################
@@ -88,6 +92,7 @@ class BasicTests(unittest.TestCase):
 ########################
 
     #Test the Login page with a Email and Password and can reach page behind login wall
+    #  REQUIRES Prior Registration
     def test_02_01_login_test(self):
         print "\nTEST - User Login Page...",
 
@@ -149,6 +154,38 @@ class BasicTests(unittest.TestCase):
 
 
 
+########################
+## TEST FOR ADD RECIPE##
+##     (LOGGED IN)    ##
+########################
+
+    #Test the Add Recipe page - Should be invalid URL
+    def test_03_01_AddRecipe_invalid_URL(self):
+        print "\nTEST - Add Recipe INVALID URL Page...",
+
+        #Send Login Post
+        response = self.app.post('/login', data={'email': testuser_email, 'password': testuser_password, 'submit': 'Login'}, follow_redirects=False)
+
+        #Try to post
+        response = self.app.post('/recipe/add', data={'URL': testURL_INVALID, 'submit': 'Submit'}, follow_redirects=False)
+
+        #Check that we have reached an invalid URL
+        self.assertEqual(response.status_code, 200)
+        print "PASSED",
+
+    #Test the Add Recipe page - Should be valid URL
+    def test_03_02_AddRecipe_valid_URL(self):
+        print "\nTEST - Add Recipe VALID URL Page...",
+
+        #Send Login Post
+        response = self.app.post('/login', data={'email': testuser_email, 'password': testuser_password, 'submit': 'Login'}, follow_redirects=False)
+
+        #Try to access add recipes (Behind login wall)
+        response = self.app.post('/recipe/add', data={'URL': testURL_VALID, 'submit': 'Submit'}, follow_redirects=False)
+
+        #Check that we have reached an invalid URL
+        self.assertEqual(response.status_code, 200)
+        print "PASSED",
 
 
 
