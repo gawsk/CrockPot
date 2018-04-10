@@ -27,6 +27,7 @@
     <a href="javascript:void(0)" onclick="w3_close()"
     class="w3-bar-item w3-button">☰</a>
 
+      <a href="/" class="w3-bar-item w3-button"><span class="glyphicon glyphicon-home"></span> Home</a>
       <a href="{{ url_for('recipe.add') }}" class="w3-bar-item w3-button"><span class="glyphicon glyphicon-plus"></span> Add Recipe</a>
       <a href="{{ url_for('recipe.view_all') }}" class="w3-bar-item w3-button"><span class="glyphicon glyphicon-leaf"></span> View all Recipes</a>
       <a href="{{ url_for('user_mgmt.view') }}" class="w3-bar-item w3-button"><span class="glyphicon glyphicon-user"></span> Your profile</a>
@@ -41,8 +42,8 @@
     {% else %}
     <a href="javascript:void(0)" onclick="w3_close()"
     class="w3-bar-item w3-button">☰</a>
-      <a href="{{ url_for('auth.register') }}" class="w3-bar-item w3-button">Register</a>
-      <a href="{{ url_for('auth.login') }}" class="w3-bar-item w3-button">Login</a>
+      <a href="{{ url_for('auth.register') }}" class="w3-bar-item w3-button"><span class="glyphicon glyphicon-envelope"></span> Register</a>
+      <a href="{{ url_for('auth.login') }}" class="w3-bar-item w3-button"><span class="glyphicon glyphicon-log-in"></span> Login</a>
     {% endif %}
   </nav>
   <!-- Top menu -->
