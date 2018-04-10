@@ -4,6 +4,7 @@
 
 {% block title %}Login{% endblock %}
 {% block content %}
+{{ super() }}
 <div class="container">
   <div class="row">
     <div class="col-md-1"></div>
@@ -15,10 +16,11 @@
       {{ utils.flashed_messages() }}
       <form action="{{ url_for('auth.login') }}" method="post">
         {{ form.hidden_tag() }}
+        </br>
         <legend>Login to your account</legend>
         {{ wtf.form_field(form.email, class='form-control', placeholder='Enter your email here') }}
         {{ wtf.form_field(form.password, class='form-control', placeholder='Enter your password here') }}
-        {{ render_field(form.submit, class='btn btn-success btn-block') }}
+        {{ form.submit(class_="btn btn-success btn-block") }}
       </form>
     <div class="col-md-1"></div>
   </div>

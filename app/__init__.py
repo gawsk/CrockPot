@@ -7,6 +7,7 @@ from flask_login import LoginManager
 
 from flask_bootstrap import Bootstrap
 from app.search.forms import SearchForm
+import os
 
 
 # Local imports
@@ -19,6 +20,11 @@ login_manager = LoginManager() # pylint: disable=C0103
 
 def create_app(config_name):
     """ Create the core of the application """
+
+    # Create Image folder
+    if not os.path.exists("app/static/img"):
+        os.makedirs("app/static/img")
+
 
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_object(app_config[config_name])

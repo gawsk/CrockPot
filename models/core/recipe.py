@@ -25,3 +25,7 @@ class Recipe(Config.Base):
 
     def __repr__(self):
         return '<Recipe: {}>'.format(self.name)
+
+    @property
+    def img_path(self):
+        return "/static/img/%s.jpg" % str(self.url_id)

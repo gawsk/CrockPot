@@ -36,6 +36,7 @@
   <div class="row">
     {{ utils.flashed_messages() }}
     <div class="col-md-1"></div>
+    <img src="{{ recipe.img_path }}"/>
     <h2>Viewing specific recipe</h2>
     <button type="button" onclick="edit_recipe()" id="editable" class="btn btn-info">
       Click me to Edit this recipe.</button>
