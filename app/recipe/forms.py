@@ -1,15 +1,20 @@
 """ Forms for recipe """
 
 from flask_wtf import FlaskForm
-from wtforms import SubmitField, TextField, validators
+from wtforms import SubmitField, TextField, validators, SelectField
 from wtforms.fields import StringField
 from wtforms.widgets import TextArea
 
-
 class URLForm(FlaskForm):
     """ Form to ask user for URL to use """
+    choices = [
+        ('1', 'Breakfast'),
+        ('2', 'Lunch'),
+        ('3', 'Dinner')
+    ]
 
     URL = TextField('URL')
+    category_id = SelectField("Category", choices=choices)
     submit = SubmitField('Submit')
 
     # def validate(self):

@@ -11,7 +11,7 @@ from operations.helper import quantity_helper
 import urllib
 
 # TODO: Only add recipe this info if user "edits"
-def add_recipe_info(user_id, details={}):
+def add_recipe_info(user_id, category_id, details={}):
     """ Add a Recipe (and all its ingredients and steps)"""
     if len(details) == 0:
         raise Exception("No details given to add recipe")
@@ -32,6 +32,7 @@ def add_recipe_info(user_id, details={}):
     recipe_obj = Recipe(name=details['name'],
                         description=details['description'],
                         user_id=user_id,
+                        category_id=int(category_id),
                         url_id=recipe_url.id)
     add(recipe_obj)
     recipe = recipe_lookup.by_user_url_id(user_id, recipe_url.id)

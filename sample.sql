@@ -39,6 +39,16 @@ CREATE TABLE recipe_url(
 );
 
 
+CREATE TABLE category(
+  id BIGINT NOT NULL AUTO_INCREMENT,
+  name VARCHAR(50) NOT NULL UNIQUE,
+  PRIMARY KEY(id)
+);
+
+INSERT INTO category VALUES(1, "Breakfast");
+INSERT INTO category VALUES(2, "Lunch");
+INSERT INTO category VALUES(3, "Dinner");
+
 -- Create recipe table
 CREATE TABLE recipe (
   id BIGINT NOT NULL AUTO_INCREMENT,
@@ -46,11 +56,12 @@ CREATE TABLE recipe (
   description VARCHAR(500),
   user_id BIGINT NOT NULL,
   url_id BIGINT NOT NULL,
+  category_id BIGINT NOT NULL,
   PRIMARY KEY(id),
   UNIQUE KEY(user_id, url_id),
   FOREIGN KEY(user_id) REFERENCES user(id),
-  FOREIGN KEY(url_id) REFERENCES recipe_url(id)
-
+  FOREIGN KEY(url_id) REFERENCES recipe_url(id),
+  FOREIGN KEY(category_id) REFERENCES category(id)
 );
 
 

@@ -38,3 +38,8 @@ def get_random(num):
     """ Get num random recipes """
     session = query_session.get_session()
     return session.query(Recipe).distinct(Recipe.url_id).order_by(func.rand()).limit(num).all()
+
+def by_category(category_id):
+    """ Get a recipe by a category id """
+    session = query_session.get_session()
+    return session.query(Recipe).filter(Recipe.category_id == category_id).all()

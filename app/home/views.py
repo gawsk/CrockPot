@@ -14,4 +14,5 @@ def index():
     recipes = recipe_lookup.get_random(8)
     recipes = [recipes[:4], recipes[4:]]
 
+
     return render_template('home/index.html', recipes=recipes)
