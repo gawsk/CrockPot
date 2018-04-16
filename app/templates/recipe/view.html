@@ -13,6 +13,7 @@
 {% endblock %}
 
 {% block scripts %}
+  {{ super() }}
   <script>
   function edit_recipe(){
     var buttons = document.getElementsByClassName('edit_button');
