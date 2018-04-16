@@ -40,31 +40,31 @@
     <img src="{{ recipe.img_path }}"/>
     <h2>Viewing specific recipe</h2>
     <button type="button" onclick="edit_recipe()" id="editable" class="btn btn-info">
-        <span class="glyphicon glyphicon-edit" style="width:50px;></span>
+      <span class="glyphicon glyphicon-edit"></span> Edit this recipe.
     </button>
-
+    <br>
     <table>
-      <li>
-        <a href="{{ url_for('recipe.edit_recipe', recipe_id=recipe.id) }}" class='edit_button'>
-          <button type="button" name ="quantity_id" class="btn btn-info"  style="text-decoration: none;">EDIT</button>
+        <a href="{{ url_for('recipe.edit_recipe', recipe_id=recipe.id) }}" class='edit_button' style="text-decoration: none;">
+          <button type="submit" name ="quantity_id" class="btn btn-info"><span class="glyphicon glyphicon-edit"></span></button>
         </a>
-
         <h3 style="display: inline;"><b>{{ recipe.name }}</b></h3>
-      </li>
 
       <ul>
         {% for step in recipe.steps %}
         <label class="container"><b>{{ step.num }}</b> - {{ step.description }}
-            <a href="{{ url_for('recipe.edit_step', recipe_step_id=step.id) }}" class='edit_button'>Edit</a>
             <input type="checkbox">
             <span class="checkmark"></span>
+          <a href="{{ url_for('recipe.edit_step', recipe_step_id=step.id) }}" class='edit_button' style="display: contents;">
+            <button type="submit" name ="quantity_id" class="btn btn-info" style="padding: 5px; padding-bottom: 2px;">
+              <span class="glyphicon glyphicon-edit"></span>
+            </button>
+          </a>
           </label>
         {% endfor %}
-      </ul>
+      <ul>
     </table>
 
     <table>
-      <ul>
           <h2>Ingredients</h2>
           {% for ingredient in recipe.quantity %}
           <li style="padding-bottom:5px;">
@@ -80,6 +80,7 @@
 
           </li>
           {% endfor %}
+        </ul>
       </ul>
     </table>
     <div class="col-md-1"></div>
