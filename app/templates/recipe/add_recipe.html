@@ -18,6 +18,7 @@
         {{ form.hidden_tag() }}
         <legend>Recipe from URL to add</legend>
         {{ wtf.form_field(form.URL, class='form-control', placeholder='Enter the URL to parse here') }}
+        {{ wtf.form_field(form.category_id, class='form-control') }}
         {{ render_field(form.submit, class='btn btn-success btn-block') }}
       </form>
     <div class="col-md-1"></div>

@@ -4,6 +4,7 @@ from sqlalchemy import Column, BigInteger, ForeignKey, String
 from sqlalchemy.orm import relationship
 from models.core.user import User
 from models.core.recipe_url import RecipeURL
+from models.core.category import Category
 from config import Config
 
 
@@ -19,7 +20,8 @@ class Recipe(Config.Base):
     description = Column(String(500))
     user_id = Column(BigInteger, ForeignKey(User.id))
     url_id = Column(BigInteger, ForeignKey(RecipeURL.id))
-
+    category_id = Column(BigInteger, ForeignKey(Category.id))
+    
     steps = relationship("RecipeStep", order_by="RecipeStep.num")
     quantity = relationship("Quantity")
 

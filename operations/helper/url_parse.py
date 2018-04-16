@@ -4,7 +4,7 @@ import urllib2
 from bs4 import BeautifulSoup
 from operations.recipe import recipe_modify
 
-def allrecipes(url, user_id):
+def allrecipes(url, category_id, user_id):
     """ Parser for allrecipes.com """
 
     url = url.split("?")[0]
@@ -35,4 +35,4 @@ def allrecipes(url, user_id):
 
 
     #TODO: if not sucess, tell user they already have the recipe...
-    return recipe_modify.add_recipe_info(user_id, results)
+    return recipe_modify.add_recipe_info(user_id, category_id, results)

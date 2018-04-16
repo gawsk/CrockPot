@@ -19,10 +19,9 @@ def add():
 
     if request.method == "POST":
         if form.validate_on_submit():
-
             #If this is not a valid recipe, return a defualt message
             try:
-              sucessful, recipe_id = url_parse.allrecipes(request.form['URL'], current_user.id)
+              sucessful, recipe_id = url_parse.allrecipes(request.form['URL'], request.form['category_id'], current_user.id)
 
               #if not sucessful, tell user they already have the object
               if not sucessful:
@@ -146,3 +145,15 @@ def delete_ingredient():
         return redirect(url_for('recipe.view', recipe_id=recipe_id))
 
     return redirect(url_for('recipe.view_all'))
+
+
+
+
+@recipe.route('/recipe/category/', methods=['GET'])
+@login_required
+def view_category():
+    """ View a  Recipe """
+    category = request.args.get('category_id')
+    all_recipes = recipe_lookup.by_category(category)
+
+    return render_template('recipe/view_all.html', all_recipes=all_recipes)
