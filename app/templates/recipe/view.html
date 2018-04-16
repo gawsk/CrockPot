@@ -35,25 +35,30 @@
 <div class="container">
   <div class="row">
     {{ utils.flashed_messages() }}
+    <br>
     <div class="col-md-1"></div>
     <img src="{{ recipe.img_path }}"/>
     <h2>Viewing specific recipe</h2>
     <button type="button" onclick="edit_recipe()" id="editable" class="btn btn-info">
-      Click me to Edit this recipe.</button>
+      <span class="glyphicon glyphicon-edit"></span> Edit this recipe.
+    </button>
+    <br>
     <table>
-      <li>
-        <a href="{{ url_for('recipe.edit_recipe', recipe_id=recipe.id) }}" class='edit_button'>
-          <button type="submit" name ="quantity_id" class="btn btn-info">EDIT</button>
+        <a href="{{ url_for('recipe.edit_recipe', recipe_id=recipe.id) }}" class='edit_button' style="text-decoration: none;">
+          <button type="submit" name ="quantity_id" class="btn btn-info"><span class="glyphicon glyphicon-edit"></span></button>
         </a>
         <h3 style="display: inline;"><b>{{ recipe.name }}</b></h3>
-      </li>
 
       <ul>
         {% for step in recipe.steps %}
         <label class="container"><b>{{ step.num }}</b> - {{ step.description }}
-            <a href="{{ url_for('recipe.edit_step', recipe_step_id=step.id) }}" class='edit_button'>Edit</a>
             <input type="checkbox">
             <span class="checkmark"></span>
+          <a href="{{ url_for('recipe.edit_step', recipe_step_id=step.id) }}" class='edit_button' style="display: contents;">
+            <button type="submit" name ="quantity_id" class="btn btn-info" style="padding: 5px; padding-bottom: 2px;">
+              <span class="glyphicon glyphicon-edit"></span>
+            </button>
+          </a>
           </label>
         {% endfor %}
       <ul>
@@ -62,14 +67,14 @@
     <table>
           <h2>Ingredients</h2>
           {% for ingredient in recipe.quantity %}
-          <li>
-            <a href="{{ url_for('recipe.edit_ingredient', quantity_id=ingredient.id) }}" class='edit_button'>
-              <button type="submit" name ="quantity_id" class="btn btn-info">EDIT</button>
+          <li style="padding-bottom:5px;">
+            <a href="{{ url_for('recipe.edit_ingredient', quantity_id=ingredient.id) }}" class='edit_button' style="text-decoration: none;">
+              <button type="submit" name ="quantity_id" class="btn btn-info" style="padding: 5px; padding-bottom: 2px;"><span class="glyphicon glyphicon-edit"></span></button>
             </a>
             <form action="{{ url_for('recipe.delete_ingredient') }}" method="post" style='display:inline;margin:0px;padding:0px;'>
               <input type="hidden" name ="recipe_id" value="{{ recipe.id }}" />
               <input type="hidden" name ="quantity_id" value="{{ ingredient.id }}" />
-              <button type="submit" name ="submit" value="submit" class="btn btn-danger edit_button">DELETE</button>
+              <button type="submit" name ="submit" value="submit" class="btn btn-danger edit_button" style="padding: 5px; padding-bottom: 2px;"><span class="glyphicon glyphicon-trash"></span></button>
             </form>
             {{ ingredient.amount }} {{ ingredient.measurement_obj.name }} {{ ingredient.ingredient_obj.name }}
 
