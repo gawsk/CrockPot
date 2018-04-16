@@ -1,15 +1,18 @@
 {% extends "sidebar.html" %}
 
 {% block content %}
-  <div class="w3-main w3-content w3-padding" style="max-width:1200px;margin-top:100px">
+  <div class="w3-main w3-content w3-padding" style="max-width:1200px;">
+  <h3>Top Recipes Recommended for you:</h3>
     {% for lst in recipes %}
       <div class="w3-row-padding w3-padding-16 w3-center" id="food">
         {% for recipe in lst %}
-        <div class="w3-quarter">
-          <img src="{{ recipe.img_path }}" style="width:100%">
-          <h3>{{ recipe.name }}</h3>
-          <p>{{ recipe.description }}</p>
-        </div>
+          <a href="{{ url_for('recipe.view', recipe_id=recipe.id) }}">
+             <div class="w3-quarter img-thumbnail w3-round-large" style="background:white; height:400px; display:grid;">
+              <img src="{{ recipe.img_path }}" style="width:100%; max-height:150px;">
+              <h3>{{ recipe.name }}</h3>
+              <div style="overflow: scroll; overflow-x: hidden; overflow-y: auto;">{{ recipe.description }}</p></div>
+            </div>
+          </a>
         {% endfor %}
       </div>
     {% endfor %}
