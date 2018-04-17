@@ -6,3 +6,4 @@ Flask-Login==0.4.1
 Flask-WTF==0.14.2
 beautifulsoup4==4.6.0
 lxml==4.1.1
+selenium==3.11.0
