@@ -10,7 +10,6 @@ from operations.recipe import recipe_url_modify, recipe_url_lookup, recipe_looku
 from operations.helper import quantity_helper
 import urllib
 
-# TODO: Only add recipe this info if user "edits"
 def add_recipe_info(user_id, category_id, details={}):
     """ Add a Recipe (and all its ingredients and steps)"""
     if len(details) == 0:

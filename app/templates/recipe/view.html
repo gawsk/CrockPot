@@ -40,9 +40,12 @@
     <div class="col-md-1"></div>
     <img src="{{ recipe.img_path }}"/>
     <h2>Viewing specific recipe</h2>
+
+    {% if current_user.id == recipe.user_id %}
     <button type="button" onclick="edit_recipe()" id="editable" class="btn btn-info">
       <span class="glyphicon glyphicon-edit"></span> Edit this recipe.
     </button>
+    {% endif %}
     <br>
     <table>
         <a href="{{ url_for('recipe.edit_recipe', recipe_id=recipe.id) }}" class='edit_button' style="text-decoration: none;">

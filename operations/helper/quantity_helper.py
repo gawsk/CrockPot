@@ -11,7 +11,7 @@ def parse(description):
     measurements = {'teaspoons', 'tablespoons', 'cup', 'cups', 'pints', 'pint', \
                     'quarts', 'quart', 'ounce', 'ounces', 'dash', 'pinch', 'cube', 'cubes'}
 
-    # Remove funky ascii that will cause errors (TODO: Find a way to keep it)
+    # Remove funky ascii that will cause errors
     printable = set(string.printable)
     description = filter(lambda x: x in printable, description)
 

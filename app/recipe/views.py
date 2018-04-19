@@ -44,7 +44,7 @@ def view():
     return render_template('recipe/view.html', recipe=recipe_obj)
 
 
-# TODO: Add decorator to ensure user own's this recipe
+# Add decorator to ensure user own's this recipe
 @recipe.route('/recipe/edit_recipe/', methods=['GET', 'POST'])
 @login_required
 def edit_recipe():

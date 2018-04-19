@@ -34,5 +34,4 @@ def allrecipes(url, category_id, user_id):
     #     print anchor.text
 
 
-    #TODO: if not sucess, tell user they already have the recipe...
     return recipe_modify.add_recipe_info(user_id, category_id, results)
