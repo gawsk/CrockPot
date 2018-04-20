@@ -33,7 +33,6 @@ def create_app(config_name):
 
     app.wsgi_app = SQLAlchemyMiddleware(app.wsgi_app)
 
-    #pylint: disable=unused-variable
     bootstrap = Bootstrap(app)
 
     login_manager.init_app(app)

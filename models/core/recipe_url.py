@@ -6,8 +6,6 @@ from config import Config
 
 class RecipeURL(Config.Base):
     """ Encapsulates a Recipe URL, it contains url a recipe is from """
-    # pylint: disable=C0103
-    # pylint: disable=too-few-public-methods
 
     __tablename__ = 'recipe_url'
 

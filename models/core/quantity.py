@@ -10,8 +10,6 @@ from config import Config
 
 class Quantity(Config.Base):
     """ Encapsulates a Quantity that beloings to a recipe """
-    # pylint: disable=C0103
-    # pylint: disable=too-few-public-methods
 
     __tablename__ = 'quantity'
 

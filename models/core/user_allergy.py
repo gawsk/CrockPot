@@ -9,8 +9,6 @@ from config import Config
 
 class UserAllergy(Config.Base):
     """ Encapsulates a User's Allergy  """
-    # pylint: disable=C0103
-    # pylint: disable=too-few-public-methods
 
     __tablename__ = 'user_allergy'
 

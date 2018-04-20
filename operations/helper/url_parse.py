@@ -21,17 +21,5 @@ def allrecipes(url, category_id, user_id):
     results['steps'] = [element.text for element in soup.findAll('li', {'class':'step'})]
     results['image_url'] = soup.findAll("img", {"class":"rec-photo"})[0]['src']
 
-    # # Prep time
-    # for anchor in soup.findAll('time', {'itemprop':'prepTime'}):
-    #     print anchor.text
-    #
-    # # Cook time
-    # for anchor in soup.findAll('time', {'itemprop':'cookTime'}):
-    #     print anchor.text
-    #
-    # # Total time
-    # for anchor in soup.findAll('time', {'itemprop':'totalTime'}):
-    #     print anchor.text
-
 
     return recipe_modify.add_recipe_info(user_id, category_id, results)

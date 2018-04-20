@@ -12,7 +12,6 @@ from models.core.user_allergy import UserAllergy
 
 class User(Config.Base, UserMixin):
     """ A User is used to keep information specifics """
-    # pylint: disable=C0103
 
     __tablename__ = 'user'
 
@@ -40,5 +39,4 @@ class User(Config.Base, UserMixin):
 @login_manager.user_loader
 def load_user(user_id):
     """ Load the user object for Login """
-    # pylint: disable=maybe-no-member
     return User.query.get(user_id)

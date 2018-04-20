@@ -8,8 +8,6 @@ from config import Config
 
 class Allergy(Config.Base):
     """ Encapsulates an Allergy  """
-    # pylint: disable=C0103
-    # pylint: disable=too-few-public-methods
 
     __tablename__ = 'allergy'
 

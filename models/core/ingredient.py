@@ -6,8 +6,6 @@ from config import Config
 
 class Ingredient(Config.Base):
     """ Encapsulates an Ingredient """
-    # pylint: disable=C0103
-    # pylint: disable=too-few-public-methods
 
     __tablename__ = 'ingredient'
 

@@ -6,8 +6,6 @@ from config import Config
 
 class Measurement(Config.Base):
     """ Encapsulates a Measurement """
-    # pylint: disable=C0103
-    # pylint: disable=too-few-public-methods
 
     __tablename__ = 'measurement'
 

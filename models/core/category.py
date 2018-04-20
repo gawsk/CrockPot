@@ -8,8 +8,6 @@ from config import Config
 
 class Category(Config.Base):
     """ Encapsulates an Category  """
-    # pylint: disable=C0103
-    # pylint: disable=too-few-public-methods
 
     __tablename__ = 'category'
 

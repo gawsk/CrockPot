@@ -6,8 +6,6 @@ from config import Config
 
 class Role(Config.Base):
     """ Role is used to determine what security permission a user has """
-    # pylint: disable=C0103
-    # pylint: disable=too-few-public-methods
 
     __tablename__ = 'role'
 
