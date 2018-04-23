@@ -12,6 +12,8 @@ import random
 import urllib2
 
 flag_isFirstRun = False
+recipeURL = ""
+localURL = ""
 
 class UntitledTestCase(unittest.TestCase):
 
@@ -180,6 +182,99 @@ class UntitledTestCase(unittest.TestCase):
         time.sleep(5)
 
 
+        localURL = driver.current_url
+        #print URL
+        if "http://localhost:5000/recipe/view/?recipe_id" in localURL:
+          print "PASSED",
+
+
+    # TC3.2 - AddRecipe[Failure to add (Duplicate)]
+    def test_03_02_AddRecipe_FailureDuplicate(self):
+        print "\n TEST - TC3.2 - AddRecipe[Failure to add (Duplicate)]...",
+        driver = self.driver
+        driver.get("http://localhost:5000/login")
+        driver.find_element_by_id("email").click()
+        driver.find_element_by_id("email").clear()
+        driver.find_element_by_id("email").send_keys("test@rpi.edu")
+        driver.find_element_by_id("password").click()
+        driver.find_element_by_id("password").clear()
+        driver.find_element_by_id("password").send_keys("test")
+        driver.find_element_by_id("submit").click()
+        driver.get("http://localhost:5000/recipe/add")
+
+        driver.find_element_by_id("URL").click()
+        driver.find_element_by_id("URL").clear()
+        driver.find_element_by_id("URL").send_keys(recipeURL)
+        driver.find_element_by_id("submit").click()
+        time.sleep(5)
+
+        URL = driver.current_url
+        #print URL
+        result = self.assertEqual(URL, "http://localhost:5000/recipe/add")
+        print "PASSED",
+
+
+
+    # TC3.3 - AddRecipe[Failure to add (Invalid URL)]
+    def test_03_03_AddRecipe_FailureInvalidURL(self):
+        print "\n TEST - TC3.3 - AddRecipe[Failure to add (Invalid URL)]...",
+        driver = self.driver
+        driver.get("http://localhost:5000/login")
+        driver.find_element_by_id("email").click()
+        driver.find_element_by_id("email").clear()
+        driver.find_element_by_id("email").send_keys("test@rpi.edu")
+        driver.find_element_by_id("password").click()
+        driver.find_element_by_id("password").clear()
+        driver.find_element_by_id("password").send_keys("test")
+        driver.find_element_by_id("submit").click()
+        driver.get("http://localhost:5000/recipe/add")
+
+        driver.find_element_by_id("URL").click()
+        driver.find_element_by_id("URL").clear()
+        driver.find_element_by_id("URL").send_keys("http://www.youtube.com")
+        driver.find_element_by_id("submit").click()
+        time.sleep(4)
+
+        URL = driver.current_url
+        #print URL
+        result = self.assertEqual(URL, "http://localhost:5000/recipe/add")
+        print "PASSED",
+
+
+
+
+
+
+
+    # EDIT RECIPE TEST CASES
+    #
+    # TC5.1 - EditRecipe[Name/Description]
+    def test_05_01_DeleteRecipe_Success(self):
+        print "\n TEST - TC5.1 - EditRecipe[Name/Description]...",
+        driver = self.driver
+        driver.get("http://localhost:5000/login")
+        driver.find_element_by_id("email").click()
+        driver.find_element_by_id("email").clear()
+        driver.find_element_by_id("email").send_keys("test@rpi.edu")
+        driver.find_element_by_id("password").click()
+        driver.find_element_by_id("password").clear()
+        driver.find_element_by_id("password").send_keys("test")
+        driver.find_element_by_id("submit").click()
+        driver.get("http://localhost:5000/recipe/view_all")
+
+        driver.find_element_by_name("quantity_id").click()
+        driver.find_element_by_id("editable").click()
+        driver.find_element_by_name("quantity_id").click()
+        driver.find_element_by_xpath("(//input[@id='name'])[2]").click()
+        driver.find_element_by_xpath("(//input[@id='name'])[2]").clear()
+        driver.find_element_by_xpath("(//input[@id='name'])[2]").send_keys("TEST")
+        driver.find_element_by_id("description").click()
+        driver.find_element_by_id("description").clear()
+        driver.find_element_by_id("description").send_keys("TEST")
+        driver.find_element_by_id("submit").click()
+
+        time.sleep(2)
+
         URL = driver.current_url
         #print URL
         if "http://localhost:5000/recipe/view/?recipe_id" in URL:
@@ -190,6 +285,33 @@ class UntitledTestCase(unittest.TestCase):
 
 
 
+
+
+    ##############################################################################
+    # ***NEED TO RUN AT END SO WE CAN EDIT FIRST***
+    # DELETE RECIPE TEST CASES
+    #
+    # TC4.1 - DeleteRecipe[Successful]
+    def test_98_04_01_DeleteRecipe_Success(self):
+        print "\n TEST - TC4.1 - DeleteRecipe[Successful]...",
+        driver = self.driver
+        driver.get("http://localhost:5000/login")
+        driver.find_element_by_id("email").click()
+        driver.find_element_by_id("email").clear()
+        driver.find_element_by_id("email").send_keys("test@rpi.edu")
+        driver.find_element_by_id("password").click()
+        driver.find_element_by_id("password").clear()
+        driver.find_element_by_id("password").send_keys("test")
+        driver.find_element_by_id("submit").click()
+        driver.get("http://localhost:5000/recipe/view_all")
+
+        driver.find_element_by_name("recipe_id").click()
+        time.sleep(2)
+
+        URL = driver.current_url
+        #print URL
+        result = self.assertEqual(URL, "http://localhost:5000/recipe/view_all")
+        print "PASSED",
 
 
 
