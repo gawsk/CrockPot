@@ -181,11 +181,13 @@ class UntitledTestCase(unittest.TestCase):
         driver.find_element_by_id("submit").click()
         time.sleep(5)
 
-
+        global localURL
         localURL = driver.current_url
         #print URL
         if "http://localhost:5000/recipe/view/?recipe_id" in localURL:
           print "PASSED",
+        print "\n" + recipeURL
+
 
 
     # TC3.2 - AddRecipe[Failure to add (Duplicate)]
@@ -206,7 +208,7 @@ class UntitledTestCase(unittest.TestCase):
         driver.find_element_by_id("URL").clear()
         driver.find_element_by_id("URL").send_keys(recipeURL)
         driver.find_element_by_id("submit").click()
-        time.sleep(5)
+        time.sleep(3)
 
         URL = driver.current_url
         #print URL
@@ -233,7 +235,7 @@ class UntitledTestCase(unittest.TestCase):
         driver.find_element_by_id("URL").clear()
         driver.find_element_by_id("URL").send_keys("http://www.youtube.com")
         driver.find_element_by_id("submit").click()
-        time.sleep(4)
+        time.sleep(3)
 
         URL = driver.current_url
         #print URL
@@ -249,7 +251,7 @@ class UntitledTestCase(unittest.TestCase):
     # EDIT RECIPE TEST CASES
     #
     # TC5.1 - EditRecipe[Name/Description]
-    def test_05_01_DeleteRecipe_Success(self):
+    def test_05_01_EditRecipe_NameDescription(self):
         print "\n TEST - TC5.1 - EditRecipe[Name/Description]...",
         driver = self.driver
         driver.get("http://localhost:5000/login")
@@ -260,9 +262,8 @@ class UntitledTestCase(unittest.TestCase):
         driver.find_element_by_id("password").clear()
         driver.find_element_by_id("password").send_keys("test")
         driver.find_element_by_id("submit").click()
-        driver.get("http://localhost:5000/recipe/view_all")
+        driver.get(localURL)
 
-        driver.find_element_by_name("quantity_id").click()
         driver.find_element_by_id("editable").click()
         driver.find_element_by_name("quantity_id").click()
         driver.find_element_by_xpath("(//input[@id='name'])[2]").click()
@@ -281,6 +282,67 @@ class UntitledTestCase(unittest.TestCase):
           print "PASSED",
 
 
+
+
+    # TC5.2 - EditRecipe[Ingredient]
+    def test_05_02_EditRecipe_Ingredient(self):
+        print "\n TEST - TC5.2 - EditRecipe[Ingredient]...",
+        driver = self.driver
+        driver.get("http://localhost:5000/login")
+        driver.find_element_by_id("email").click()
+        driver.find_element_by_id("email").clear()
+        driver.find_element_by_id("email").send_keys("test@rpi.edu")
+        driver.find_element_by_id("password").click()
+        driver.find_element_by_id("password").clear()
+        driver.find_element_by_id("password").send_keys("test")
+        driver.find_element_by_id("submit").click()
+        driver.get(localURL)
+
+
+        driver.find_element_by_id("editable").click()
+        driver.find_element_by_xpath("(//button[@name='quantity_id'])[2]").click()
+        driver.find_element_by_id("description").click()
+        driver.find_element_by_id("description").clear()
+        driver.find_element_by_id("description").send_keys("TEST")
+        driver.find_element_by_id("submit").click()
+
+        time.sleep(2)
+
+        URL = driver.current_url
+        #print URL
+        if "http://localhost:5000/recipe/view/?recipe_id" in URL:
+          print "PASSED",
+
+
+
+
+    # TC5.3 - EditRecipe[Step]
+    def test_05_03_EditRecipe_Ingredient(self):
+        print "\n TEST - TC5.3 - EditRecipe[Step]...",
+        driver = self.driver
+        driver.get("http://localhost:5000/login")
+        driver.find_element_by_id("email").click()
+        driver.find_element_by_id("email").clear()
+        driver.find_element_by_id("email").send_keys("test@rpi.edu")
+        driver.find_element_by_id("password").click()
+        driver.find_element_by_id("password").clear()
+        driver.find_element_by_id("password").send_keys("test")
+        driver.find_element_by_id("submit").click()
+        driver.get(localURL)
+
+        driver.find_element_by_id("editable").click()
+        driver.find_element_by_xpath("(//button[@name='quantity_id'])[3]").click()
+        driver.find_element_by_id("description").click()
+        driver.find_element_by_id("description").clear()
+        driver.find_element_by_id("description").send_keys("TEST")
+        driver.find_element_by_id("submit").click()
+
+        time.sleep(2)
+
+        URL = driver.current_url
+        #print URL
+        if "http://localhost:5000/recipe/view/?recipe_id" in URL:
+          print "PASSED",
 
 
 

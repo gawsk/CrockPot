@@ -58,7 +58,7 @@
         <label class="container"><b>{{ step.num }}</b> - {{ step.description }}
             <input type="checkbox">
             <span class="checkmark"></span>
-          <a href="{{ url_for('recipe.edit_step', recipe_step_id=step.id) }}" class='edit_button' style="display: contents;">
+          <a href="{{ url_for('recipe.edit_step', recipe_step_id=step.id) }}" class='edit_button' style="display: contents; font-family: Ariel;">
             <button type="submit" name ="quantity_id" class="btn btn-info" style="padding: 5px; padding-bottom: 2px;">
               <span class="glyphicon glyphicon-edit"></span>
             </button>
