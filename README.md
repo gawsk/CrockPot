@@ -50,7 +50,7 @@ If you update any of the code, you must re-run the command above.
 
 
 
-#For testing, use Selenium:
+# For testing, use Selenium:
 
   -Requires a webbrowser driver (Recommend PhantomJS headless browser)
 
