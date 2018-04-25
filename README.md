@@ -6,10 +6,15 @@ Software Design and Documentation Project
 
 # Install
 1.) Download pip
+
 2.) Install mysql
+
 3.) Install requirements.txt
+
 4.) Install MYSQL sql
+
 5.) Create instance folder and add 'config.py' inside
+
 6.) Add a random secret key to 'config.py'
   ```
   sudo apt-get install python-pip python-dev build-essential
@@ -43,7 +48,9 @@ Navigate to localhost:5000 to view the webpage
 If you update any of the code, you must re-run the command above.
 
 
-For testing, use Selenium:
+
+
+#For testing, use Selenium:
 
   -Requires a webbrowser driver (Recommend PhantomJS headless browser)
 
