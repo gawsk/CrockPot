@@ -37,14 +37,21 @@ If you haven't already, go to the directory where you installed installed Crockp
   ```
 
 To run the program use the following command: `flask run`
+
 Navigate to localhost:5000 to view the webpage
+
 If you update any of the code, you must re-run the command above.
 
 
 For testing, use Selenium:
--Requires a webbrowser driver (Recommend PhantomJS headless browser)
-  http://phantomjs.org/download.html
--Move to folder in PATH
-  Ex: sudo mv phantomjs /usr/local/bin
--Recommend use Katalon Automation Recorder to help create testcases
+
+  -Requires a webbrowser driver (Recommend PhantomJS headless browser)
+
+    http://phantomjs.org/download.html
+
+  -Move to folder in PATH
+
+    Ex: sudo mv phantomjs /usr/local/bin
+
+  -Recommend use Katalon Automation Recorder to help create testcases
 
