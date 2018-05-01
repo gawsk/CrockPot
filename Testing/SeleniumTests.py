@@ -6,7 +6,9 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
-import unittest, time, re
+import unittest
+import time
+import re
 import time
 import random
 import urllib2
@@ -14,6 +16,7 @@ import urllib2
 flag_isFirstRun = False
 recipeURL = ""
 localURL = ""
+
 
 class UntitledTestCase(unittest.TestCase):
 
@@ -25,7 +28,7 @@ class UntitledTestCase(unittest.TestCase):
         self.verificationErrors = []
         self.accept_next_alert = True
 
-    #USER REGISTER TEST CASES
+    # USER REGISTER TEST CASES
     #
     # Must start with 'test_'
     # TC1.1 - UserRegister [Valid registration]
@@ -50,9 +53,8 @@ class UntitledTestCase(unittest.TestCase):
         driver.find_element_by_id("submit").click()
         URL = driver.current_url
         if self.flag_isFirstRun == True:
-          result = self.assertEqual(URL, "http://localhost:5000/login")
+            result = self.assertEqual(URL, "http://localhost:5000/login")
         print "PASSED",
-
 
     # TC1.2 - UserRegister [Invalid registration]
     def test_01_02_Register_Invalid(self):
@@ -87,11 +89,10 @@ class UntitledTestCase(unittest.TestCase):
         driver.find_element_by_id("submit").click()
         URL = driver.current_url
         if self.flag_isFirstRun == True:
-          result = self.assertEqual(URL, "http://localhost:5000/register")
+            result = self.assertEqual(URL, "http://localhost:5000/register")
         print "PASSED",
 
-
-    #USER LOGIN TEST CASES
+    # USER LOGIN TEST CASES
     #
     # TC2.1 - UserLogin[Successful login]
     def test_02_01_Login_Success(self):
@@ -109,7 +110,6 @@ class UntitledTestCase(unittest.TestCase):
         URL = driver.current_url
         result = self.assertEqual(URL, "http://localhost:5000/")
         print "PASSED",
-
 
     # TC2.2 - UserLogin[Failed login - Username]
     def test_02_02_Login_Fail_Username(self):
@@ -145,7 +145,6 @@ class UntitledTestCase(unittest.TestCase):
         result = self.assertEqual(URL, "http://localhost:5000/login")
         print "PASSED",
 
-
     # ADD RECIPE TEST CASES
     #
     # TC3.1 - AddRecipe[Successfully added]
@@ -162,18 +161,19 @@ class UntitledTestCase(unittest.TestCase):
         driver.find_element_by_id("submit").click()
         driver.get("http://localhost:5000/recipe/add")
 
-        #Generate test recipe
+        # Generate test recipe
         recipeURL = ""
         for i in range(0, 50):
-          val = random.randint(1,999999)
+            val = random.randint(1, 999999)
 
-          #Try the URL to see if it is valid
-          try:
-            response = urllib2.urlopen('https://www.allrecipes.com/recipe/' + str(val))
-            recipeURL = "https://www.allrecipes.com/recipe/" + str(val)
-            break
-          except:
-            continue
+            # Try the URL to see if it is valid
+            try:
+                response = urllib2.urlopen(
+                    'https://www.allrecipes.com/recipe/' + str(val))
+                recipeURL = "https://www.allrecipes.com/recipe/" + str(val)
+                break
+            except:
+                continue
 
         driver.find_element_by_id("URL").click()
         driver.find_element_by_id("URL").clear()
@@ -183,12 +183,10 @@ class UntitledTestCase(unittest.TestCase):
 
         global localURL
         localURL = driver.current_url
-        #print URL
+        # print URL
         if "http://localhost:5000/recipe/view/?recipe_id" in localURL:
-          print "PASSED",
-        print "\n" + recipeURL
-
-
+            print "PASSED",
+        # print "\n" + recipeURL
 
     # TC3.2 - AddRecipe[Failure to add (Duplicate)]
     def test_03_02_AddRecipe_FailureDuplicate(self):
@@ -211,11 +209,9 @@ class UntitledTestCase(unittest.TestCase):
         time.sleep(3)
 
         URL = driver.current_url
-        #print URL
+        # print URL
         result = self.assertEqual(URL, "http://localhost:5000/recipe/add")
         print "PASSED",
-
-
 
     # TC3.3 - AddRecipe[Failure to add (Invalid URL)]
     def test_03_03_AddRecipe_FailureInvalidURL(self):
@@ -238,15 +234,9 @@ class UntitledTestCase(unittest.TestCase):
         time.sleep(3)
 
         URL = driver.current_url
-        #print URL
+        # print URL
         result = self.assertEqual(URL, "http://localhost:5000/recipe/add")
         print "PASSED",
-
-
-
-
-
-
 
     # EDIT RECIPE TEST CASES
     #
@@ -268,7 +258,8 @@ class UntitledTestCase(unittest.TestCase):
         driver.find_element_by_name("quantity_id").click()
         driver.find_element_by_xpath("(//input[@id='name'])[2]").click()
         driver.find_element_by_xpath("(//input[@id='name'])[2]").clear()
-        driver.find_element_by_xpath("(//input[@id='name'])[2]").send_keys("TEST")
+        driver.find_element_by_xpath(
+            "(//input[@id='name'])[2]").send_keys("TEST")
         driver.find_element_by_id("description").click()
         driver.find_element_by_id("description").clear()
         driver.find_element_by_id("description").send_keys("TEST")
@@ -277,12 +268,9 @@ class UntitledTestCase(unittest.TestCase):
         time.sleep(2)
 
         URL = driver.current_url
-        #print URL
+        # print URL
         if "http://localhost:5000/recipe/view/?recipe_id" in URL:
-          print "PASSED",
-
-
-
+            print "PASSED",
 
     # TC5.2 - EditRecipe[Ingredient]
     def test_05_02_EditRecipe_Ingredient(self):
@@ -298,9 +286,9 @@ class UntitledTestCase(unittest.TestCase):
         driver.find_element_by_id("submit").click()
         driver.get(localURL)
 
-
         driver.find_element_by_id("editable").click()
-        driver.find_element_by_xpath("(//button[@name='quantity_id'])[2]").click()
+        driver.find_element_by_xpath(
+            "(//button[@name='quantity_id'])[2]").click()
         driver.find_element_by_id("description").click()
         driver.find_element_by_id("description").clear()
         driver.find_element_by_id("description").send_keys("TEST")
@@ -309,12 +297,9 @@ class UntitledTestCase(unittest.TestCase):
         time.sleep(2)
 
         URL = driver.current_url
-        #print URL
+        # print URL
         if "http://localhost:5000/recipe/view/?recipe_id" in URL:
-          print "PASSED",
-
-
-
+            print "PASSED",
 
     # TC5.3 - EditRecipe[Step]
     def test_05_03_EditRecipe_Ingredient(self):
@@ -331,7 +316,8 @@ class UntitledTestCase(unittest.TestCase):
         driver.get(localURL)
 
         driver.find_element_by_id("editable").click()
-        driver.find_element_by_xpath("(//button[@name='quantity_id'])[3]").click()
+        driver.find_element_by_xpath(
+            "(//button[@name='quantity_id'])[3]").click()
         driver.find_element_by_id("description").click()
         driver.find_element_by_id("description").clear()
         driver.find_element_by_id("description").send_keys("TEST")
@@ -340,16 +326,11 @@ class UntitledTestCase(unittest.TestCase):
         time.sleep(2)
 
         URL = driver.current_url
-        #print URL
+        # print URL
         if "http://localhost:5000/recipe/view/?recipe_id" in URL:
-          print "PASSED",
+            print "PASSED",
 
-
-
-
-
-
-    ##############################################################################
+    ##########################################################################
     # ***NEED TO RUN AT END SO WE CAN EDIT FIRST***
     # DELETE RECIPE TEST CASES
     #
@@ -371,27 +352,28 @@ class UntitledTestCase(unittest.TestCase):
         time.sleep(2)
 
         URL = driver.current_url
-        #print URL
+        # print URL
         result = self.assertEqual(URL, "http://localhost:5000/recipe/view_all")
         print "PASSED",
 
-
-
-    ##LEAVE THIS LAST
-    #DUMMY TEST to make print statements in terminal display correct
+    # LEAVE THIS LAST
+    # DUMMY TEST to make print statements in terminal display correct
     def test_99_01_dummyTest_page(self):
         self.assertEqual("!", "!")
         print
 
-
     def is_element_present(self, how, what):
-        try: self.driver.find_element(by=how, value=what)
-        except NoSuchElementException as e: return False
+        try:
+            self.driver.find_element(by=how, value=what)
+        except NoSuchElementException as e:
+            return False
         return True
 
     def is_alert_present(self):
-        try: self.driver.switch_to_alert()
-        except NoAlertPresentException as e: return False
+        try:
+            self.driver.switch_to_alert()
+        except NoAlertPresentException as e:
+            return False
         return True
 
     def close_alert_and_get_its_text(self):
@@ -403,7 +385,8 @@ class UntitledTestCase(unittest.TestCase):
             else:
                 alert.dismiss()
             return alert_text
-        finally: self.accept_next_alert = True
+        finally:
+            self.accept_next_alert = True
 
     def tearDown(self):
         self.driver.quit()
@@ -412,12 +395,8 @@ class UntitledTestCase(unittest.TestCase):
 if __name__ == "__main__":
     firstRun = raw_input("First run?: (Y/N)")
     if firstRun.lower() != "y":
-      flag_isFirstRun = False
+        flag_isFirstRun = False
     else:
-      flag_isFirstRun = True
-
-
-
+        flag_isFirstRun = True
 
     unittest.main()
-
